@@ -34,11 +34,11 @@ namespace AcademicManagementSystem.Controllers
 
                 if (userInformations.Authority == "Teacher")
                 {
-                    return RedirectToAction("Index", "Teacher");
+                    return RedirectToAction("Index", "Teacher" , userInformations);
                 }
                 else if (userInformations.Authority == "Student")
                 {
-                    return RedirectToAction("Index", "Student");
+                    return RedirectToAction("Index", "Student" , userInformations);
                 }
             }
             return View();

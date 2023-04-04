@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model AcademicManagementSystem.Models.TblUser
+
+<!DOCTYPE html>
 
 <!-- =========================================================
 * Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
@@ -239,7 +241,7 @@
                             </div>
                           </div>
                           <div class="flex-grow-1">
-                            <span class="fw-semibold d-block">John Doe</span>
+                            <span class="fw-semibold d-block">@Model.Name @Model.Surname</span>
                             <small class="text-muted">Student</small>
                           </div>
                         </div>

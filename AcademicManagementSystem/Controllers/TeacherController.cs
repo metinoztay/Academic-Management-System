@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AcademicManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicManagementSystem.Controllers
@@ -6,55 +7,57 @@ namespace AcademicManagementSystem.Controllers
 	[Authorize]
 	public class TeacherController : Controller
     {
-        public IActionResult Index()
+        TblUser teacher = new TblUser();
+        public IActionResult Index(TblUser t)
         {
-            return View();
+            teacher = t;
+            return View(teacher);
         }
 
         public IActionResult Lessons()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult EntryNote()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult ByFaculty()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult BySection()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult ByLesson()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult Discontinuity()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult Announcements()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult MakeAnnouncement()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 
         public IActionResult MyProfile()
         {
-            return View();
-        }
+			return View(teacher);
+		}
 		public IActionResult Logout()
 		{
 			return RedirectToAction("Logout", "Account");
