@@ -1,6 +1,7 @@
 ﻿using AcademicManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.DependencyResolver;
 
 namespace AcademicManagementSystem.Controllers
 {
@@ -12,11 +13,12 @@ namespace AcademicManagementSystem.Controllers
         {
             teacher = t;
             return View(teacher);
-        }
+		}
 
-        public IActionResult Lessons()
+        public IActionResult Lessons(TblUser t)
         {
-			return View(teacher);
+			t = teacher;
+			return View(t);
 		}
 
         public IActionResult EntryNote()

@@ -17,7 +17,7 @@ namespace AcademicManagementSystem.Controllers
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Login(TblUser user)
+		public async Task<IActionResult> Login(TblUser user,string ReturnUrl)
 		{
 			DbAcademicMsContext db = new DbAcademicMsContext();
 			var userInformations = db.TblUsers.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
@@ -31,14 +31,18 @@ namespace AcademicManagementSystem.Controllers
 				var userIdentity = new ClaimsIdentity(claims,"Login"); //kullanıcı kimliği oluşturuldu
 				ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 				await HttpContext.SignInAsync(principal);
-
-                if (userInformations.Authority == "Teacher")
+                
+				if (ReturnUrl!=null)
                 {
-                    return RedirectToAction("Index", "Teacher" , userInformations);
+                    return Redirect(ReturnUrl);
+                }
+                else if (userInformations.Authority == "Teacher")
+                {
+                    return RedirectToAction("Index", "Teacher", userInformations);
                 }
                 else if (userInformations.Authority == "Student")
                 {
-                    return RedirectToAction("Index", "Student" , userInformations);
+                    return RedirectToAction("Index", "Student", userInformations);
                 }
             }
             return View();
