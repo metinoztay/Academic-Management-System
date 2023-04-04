@@ -1,8 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicManagementSystem.Controllers
 {
-    public class TeacherController : Controller
+	[Authorize]
+	public class TeacherController : Controller
     {
         public IActionResult Index()
         {
@@ -53,5 +55,9 @@ namespace AcademicManagementSystem.Controllers
         {
             return View();
         }
-    }
+		public IActionResult Logout()
+		{
+			return RedirectToAction("Logout", "Account");
+		}
+	}
 }

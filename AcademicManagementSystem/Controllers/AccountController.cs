@@ -20,25 +20,25 @@ namespace AcademicManagementSystem.Controllers
 		public async Task<IActionResult> Login(TblUser user)
 		{
 			DbAcademicMsContext db = new DbAcademicMsContext();
-			var getUser = db.TblUsers.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
+			var userInformations = db.TblUsers.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
 			
-			if(getUser!=null) //kullanıcı bulundu
+			if(userInformations!=null) //kullanıcı bulundu
 			{
 				var claims = new List<Claim>()
 				{
-					new Claim(ClaimTypes.Name,user.Name.ToString()) 
+					new Claim(ClaimTypes.Name,user.Username) 
 				};
-				ClaimsIdentity userIdentity = new ClaimsIdentity(claims); //kullanıcı kimliği oluşturuldu
+				var userIdentity = new ClaimsIdentity(claims,"Login"); //kullanıcı kimliği oluşturuldu
 				ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 				await HttpContext.SignInAsync(principal);
 
-                if (user.Authority == "Teacher")
+                if (userInformations.Authority == "Teacher")
                 {
-                    return RedirectToAction("Teacher", "Home");
+                    return RedirectToAction("Index", "Teacher");
                 }
-                else if (user.Authority == "Student")
+                else if (userInformations.Authority == "Student")
                 {
-                    return RedirectToAction("Student", "Home");
+                    return RedirectToAction("Index", "Student");
                 }
             }
             return View();
@@ -47,7 +47,7 @@ namespace AcademicManagementSystem.Controllers
 		public async Task<IActionResult> Logout()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-			return RedirectToAction("Index", "Home");
+			return RedirectToAction("Login", "Account");
 		}
 		public static string MD5Sifrele(string sifrelenecekMetin) //kullanıcı parolarları şifrelendiğinde kullanılacak
 		{

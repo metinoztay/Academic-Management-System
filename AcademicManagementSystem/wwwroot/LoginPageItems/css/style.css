@@ -107,18 +107,18 @@ img{
     font-weight: 700;
 }
 
-input[type="email"] {
+input[type="text"] {
 	font-size: 15px;
 	color: #333;
-    text-align: left;
-    letter-spacing: 1px;
-    padding: 14px 10px;
-	width:93%;
-	display:inline-block;
-    box-sizing: border-box;
-   	border: none;
-    outline: none;
-    background: transparent;
+	text-align: left;
+	letter-spacing: 1px;
+	padding: 14px 10px;
+	width: 93%;
+	display: inline-block;
+	box-sizing: border-box;
+	border: none;
+	outline: none;
+	background: transparent;
 	font-family: 'Raleway', sans-serif;
 }
 input[type="Password"] {
