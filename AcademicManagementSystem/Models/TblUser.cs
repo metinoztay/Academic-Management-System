@@ -18,4 +18,12 @@ public partial class TblUser
     public string Email { get; set; } = null!;
 
     public string Authority { get; set; } = null!;
+
+    public string Adress { get; set; } = null!;
+
+    public string District { get; set; } = null!;
+
+    public string Province { get; set; } = null!;
+
+    public string SecurityKey { get; set; } = null!;
 }

@@ -25,7 +25,7 @@ public partial class DbAcademicMsContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseSqlServer("Server=localhost;Database=dbAcademicMS;uid=sa; pwd=as; trustServerCertificate=true");
+        => optionsBuilder.UseSqlServer("Server=localhost; Database=dbAcademicMS;uid=sa; pwd=as; trustServerCertificate=true");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -99,6 +99,7 @@ public partial class DbAcademicMsContext : DbContext
             entity.Property(e => e.Authority)
                 .HasMaxLength(7)
                 .IsFixedLength();
+            entity.Property(e => e.District).HasMaxLength(50);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)
                 .HasColumnName("email");
@@ -107,6 +108,8 @@ public partial class DbAcademicMsContext : DbContext
             entity.Property(e => e.Phone)
                 .HasMaxLength(11)
                 .IsFixedLength();
+            entity.Property(e => e.Province).HasMaxLength(50);
+            entity.Property(e => e.SecurityKey).HasMaxLength(50);
             entity.Property(e => e.Surname).HasMaxLength(50);
         });
 

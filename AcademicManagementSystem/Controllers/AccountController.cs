@@ -42,7 +42,7 @@ namespace AcademicManagementSystem.Controllers
                 }
                 else if (userInformations.Authority == "Student")
                 {
-                    return RedirectToAction("Index", "Student", userInformations);
+                    return RedirectToAction("MyProfile", "Student", userInformations);
                 }
             }
             return View();

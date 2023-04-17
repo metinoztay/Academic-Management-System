@@ -40,9 +40,9 @@ namespace AcademicManagementSystem.Controllers
 			return View(student);
 		}
 
-        public IActionResult MyProfile()
+        public IActionResult MyProfile(TblUser s)
         {
-			return View(student);
+			return View(s);
 		}
 
 		public IActionResult Logout()

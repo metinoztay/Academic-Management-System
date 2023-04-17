@@ -1,4 +1,4 @@
-﻿
+﻿@model AcademicManagementSystem.Models.TblUser
 @{
     ViewData["Title"] = "MyProfile";
     Layout = "~/Views/_StudentLayout.cshtml";
@@ -16,39 +16,39 @@
                         <div class="row">
                           <div class="mb-3 col-md-6">
                             <label for="firstName" class="form-label">First Name</label>
-                            <input class="form-control" type="text" id="firstName" name="firstName" value="studentName" autofocus="" readonly>
+                            <input class="form-control" type="text" id="firstName" name="firstName" value="@Model.Name" readonly>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="lastName" class="form-label">Last Name</label>
-                            <input class="form-control" type="text" name="lastName" id="lastName" value="studentSurname" readonly>
+                            <input class="form-control" type="text" name="lastName" id="lastName" value="@Model.Surname" readonly>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="email" class="form-label">E-mail</label>
-                            <input class="form-control" type="text" id="email" name="email" value="student@gmail.com" placeholder="student@gmail.com">
+                            <input class="form-control" type="text" id="email" name="email" value="@Model.Email">
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="organization" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="organization" name="organization" value="usernameValue" readonly>
+                            <input type="text" class="form-control" id="username" name="username" value="@Model.Username" readonly>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="phoneNumber">Phone Number</label>
                             <div class="input-group input-group-merge">
                               <span class="input-group-text">TR (+90)</span>
-                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="202 555 0111">
+                              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" value="@Model.Phone">
                             </div>
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="address" class="form-label">Address</label>
-                            <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                            <input type="text" class="form-control" id="address" name="address" value="@Model.Adress">
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="zipCode" class="form-label">District</label>
-                            <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Country" maxlength="6">
+                            <input type="text" class="form-control" id="zipCode" name="zipCode" value="@Model.District" maxlength="6">
                           </div>
                           <div class="mb-3 col-md-6">
                             <label class="form-label" for="province">Province</label>
                             <select id="province" class="select2 form-select">
-                              <option value="">Select</option>
+                              <option value="">@Model.Province</option>
 <option value="Adana" data-ekdeger="1">Adana</option>
 <option value="Adıyaman" data-ekdeger="2">Adıyaman</option>
 <option value="Afyonkarahisar " data-ekdeger="3">Afyonkarahisar </option>
@@ -144,7 +144,7 @@
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="state" class="form-label">Security Key</label>
-                            <input class="form-control" type="text" id="state" name="state" placeholder="securityKeyValue">
+                            <input class="form-control" type="text" id="state" name="state" value="@Model.SecurityKey">
                           </div>
                           <div class="mb-3 col-md-6">
                             <label for="state" class="form-label">Confirm Password</label>
