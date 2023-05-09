@@ -8,61 +8,104 @@ namespace AcademicManagementSystem.Controllers
 	[Authorize]
 	public class TeacherController : Controller
     {
-        TblUser teacher = new TblUser();
-        public IActionResult Index(TblUser t)
+        TblUser activeTeacher = new TblUser();
+        public IActionResult Index(TblUser teacher)
         {
-            teacher = t;
-            return View(teacher);
-		}
+            if (!ActiveUser.isSettedInformations)
+                SetActiveUserInformations(teacher);
 
-        public IActionResult Lessons(TblUser t)
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
+
+        public IActionResult Lessons()
         {
-			t = teacher;
-			return View(t);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult EntryNote()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult ByFaculty()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult BySection()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult ByLesson()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult Discontinuity()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult Announcements()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
         public IActionResult MakeAnnouncement()
         {
-			return View(teacher);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 
-        public IActionResult MyProfile(TblUser t)
+        public IActionResult MyProfile()
         {
-			return View(t);
-		}
+            GetActiveUserInformations();
+            return View(activeTeacher);
+        }
 		public IActionResult Logout()
 		{
-			return RedirectToAction("Logout", "Account");
+            ActiveUser.isSettedInformations = false;
+            return RedirectToAction("Logout", "Account");
 		}
-	}
+
+        private void GetActiveUserInformations()
+        {
+            activeTeacher.Username = ActiveUser.Username;
+            activeTeacher.Name = ActiveUser.Name;
+            activeTeacher.Surname = ActiveUser.Surname;
+            activeTeacher.Email = ActiveUser.Email;
+            activeTeacher.Phone = ActiveUser.Phone;
+            activeTeacher.Password = ActiveUser.Password;
+            activeTeacher.Authority = ActiveUser.Authority;
+            activeTeacher.Adress = ActiveUser.Adress;
+            activeTeacher.District = ActiveUser.District;
+            activeTeacher.Province = ActiveUser.Province;
+            activeTeacher.SecurityKey = ActiveUser.SecurityKey;
+        }
+
+        private void SetActiveUserInformations(TblUser studentModel)
+        {
+            ActiveUser.Username = studentModel.Username;
+            ActiveUser.Name = studentModel.Name;
+            ActiveUser.Surname = studentModel.Surname;
+            ActiveUser.Email = studentModel.Email;
+            ActiveUser.Phone = studentModel.Phone;
+            ActiveUser.Password = studentModel.Password;
+            ActiveUser.Authority = studentModel.Authority;
+            ActiveUser.Adress = studentModel.Adress;
+            ActiveUser.District = studentModel.District;
+            ActiveUser.Province = studentModel.Province;
+            ActiveUser.SecurityKey = studentModel.SecurityKey;
+            ActiveUser.isSettedInformations = true;
+        }
+    }
 }

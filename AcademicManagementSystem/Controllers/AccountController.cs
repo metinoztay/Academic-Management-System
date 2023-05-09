@@ -11,7 +11,8 @@ namespace AcademicManagementSystem.Controllers
 {
 	public class AccountController : Controller
 	{
-		public IActionResult Login()
+		
+        public IActionResult Login()
 		{
 			return View();
 		}
@@ -21,7 +22,8 @@ namespace AcademicManagementSystem.Controllers
 		{
 			DbAcademicMsContext db = new DbAcademicMsContext();
 			var userInformations = db.TblUsers.FirstOrDefault(x => x.Username == user.Username && x.Password == user.Password);
-			
+
+
 			if(userInformations!=null) //kullanıcı bulundu
 			{
 				var claims = new List<Claim>()
@@ -32,13 +34,10 @@ namespace AcademicManagementSystem.Controllers
 				ClaimsPrincipal principal = new ClaimsPrincipal(userIdentity);
 				await HttpContext.SignInAsync(principal);
                 
-				if (ReturnUrl!=null)
+
+                if (userInformations.Authority == "Teacher")
                 {
-                    return Redirect(ReturnUrl);
-                }
-                else if (userInformations.Authority == "Teacher")
-                {
-                    return RedirectToAction("MyProfile", "Teacher", userInformations);
+                    return RedirectToAction("Index", "Teacher", userInformations);
                 }
                 else if (userInformations.Authority == "Student")
                 {
