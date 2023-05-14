@@ -8,6 +8,7 @@ namespace AcademicManagementSystem.Controllers
 	[Authorize]
     public class StudentController : Controller
     {		
+        DbAcademicMsContext dbAcademicMsContext = new DbAcademicMsContext();
 		TblUser activeStudent = new TblUser();
 		public IActionResult Index(TblUser student)
         {
@@ -54,7 +55,22 @@ namespace AcademicManagementSystem.Controllers
             return View(activeStudent);
         }
 
-		public IActionResult Logout()
+        [HttpPost]
+        public IActionResult MyProfile(TblUser student)
+        {
+            student.Authority = "Student";
+            if (student.Province == null)
+                student.Province = ActiveUser.Province;
+
+            if (student.Password == null)
+                student.Password = ActiveUser.Password;           
+
+            dbAcademicMsContext.TblUsers.Update(student);
+            dbAcademicMsContext.SaveChanges();
+            return View(student);
+        }
+
+        public IActionResult Logout()
 		{
             ActiveUser.isSettedInformations = false;
             return RedirectToAction("Logout","Account");
@@ -63,16 +79,16 @@ namespace AcademicManagementSystem.Controllers
 		private void GetActiveUserInformations()
 		{
 			activeStudent.Username = ActiveUser.Username;
-			activeStudent.Name=ActiveUser.Name;
-			activeStudent.Surname=ActiveUser.Surname;
-			activeStudent.Email=ActiveUser.Email;
-			activeStudent.Phone=ActiveUser.Phone;
-			activeStudent.Password=ActiveUser.Password;
+			activeStudent.Name = ActiveUser.Name;
+			activeStudent.Surname = ActiveUser.Surname;
+			activeStudent.Email = ActiveUser.Email;
+			activeStudent.Phone = ActiveUser.Phone;
+			activeStudent.Password = ActiveUser.Password;
 			activeStudent.Authority = ActiveUser.Authority;
 			activeStudent.Adress = ActiveUser.Adress;
-			activeStudent.District= ActiveUser.District;
-			activeStudent.Province=ActiveUser.Province;
-			activeStudent.SecurityKey=ActiveUser.SecurityKey;
+			activeStudent.District = ActiveUser.District;
+			activeStudent.Province = ActiveUser.Province;
+			activeStudent.SecurityKey = ActiveUser.SecurityKey;
 		}
 
 		private void SetActiveUserInformations(TblUser studentModel)

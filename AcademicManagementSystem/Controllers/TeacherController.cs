@@ -5,9 +5,12 @@ using NuGet.DependencyResolver;
 
 namespace AcademicManagementSystem.Controllers
 {
-	[Authorize]
+    
+
+    [Authorize]
 	public class TeacherController : Controller
     {
+        DbAcademicMsContext dbAcademicMsContext = new DbAcademicMsContext();
         TblUser activeTeacher = new TblUser();
         public IActionResult Index(TblUser teacher)
         {
@@ -71,7 +74,24 @@ namespace AcademicManagementSystem.Controllers
             GetActiveUserInformations();
             return View(activeTeacher);
         }
-		public IActionResult Logout()
+
+        [HttpPost]
+        public IActionResult MyProfile(TblUser teacher)
+        {
+            teacher.Authority = "Student";
+            if (teacher.Province == null)
+                teacher.Province = ActiveUser.Province;
+
+            if (teacher.Password == null)
+                teacher.Password = ActiveUser.Password;
+
+            dbAcademicMsContext.TblUsers.Update(teacher);
+            dbAcademicMsContext.SaveChanges();
+            return View(teacher);
+        }
+
+
+        public IActionResult Logout()
 		{
             ActiveUser.isSettedInformations = false;
             return RedirectToAction("Logout", "Account");
