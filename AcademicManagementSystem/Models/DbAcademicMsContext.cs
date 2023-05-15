@@ -15,6 +15,8 @@ public partial class DbAcademicMsContext : DbContext
     {
     }
 
+    public virtual DbSet<TblAnnouncement> TblAnnouncements { get; set; }
+
     public virtual DbSet<TblLesson> TblLessons { get; set; }
 
     public virtual DbSet<TblStudent> TblStudents { get; set; }
@@ -29,6 +31,17 @@ public partial class DbAcademicMsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TblAnnouncement>(entity =>
+        {
+            entity.ToTable("tblAnnouncements");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.LastDate).HasColumnType("date");
+            entity.Property(e => e.PostDate).HasColumnType("date");
+            entity.Property(e => e.TeacherName).HasMaxLength(50);
+            entity.Property(e => e.Text).HasColumnType("text");
+        });
+
         modelBuilder.Entity<TblLesson>(entity =>
         {
             entity.HasKey(e => e.Code);
@@ -40,11 +53,12 @@ public partial class DbAcademicMsContext : DbContext
             entity.Property(e => e.Faculty).HasMaxLength(50);
             entity.Property(e => e.LessonClass).HasMaxLength(50);
             entity.Property(e => e.LessonDay).HasMaxLength(50);
+            entity.Property(e => e.LessonName).HasMaxLength(50);
             entity.Property(e => e.LessonTime).HasMaxLength(50);
-            entity.Property(e => e.Name).HasMaxLength(50);
             entity.Property(e => e.TeacherId)
                 .HasMaxLength(50)
                 .HasColumnName("TeacherID");
+            entity.Property(e => e.TeacherName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TblStudent>(entity =>
@@ -56,9 +70,6 @@ public partial class DbAcademicMsContext : DbContext
             entity.Property(e => e.StudentId)
                 .HasMaxLength(50)
                 .HasColumnName("StudentID");
-            entity.Property(e => e.Class)
-                .HasMaxLength(10)
-                .IsFixedLength();
             entity.Property(e => e.Course).HasMaxLength(50);
             entity.Property(e => e.Faculty).HasMaxLength(50);
         });

@@ -1,8 +1,26 @@
-﻿
+﻿@model IEnumerable<AcademicManagementSystem.Models.TblAnnouncement>
 @{
     ViewData["Title"] = "Announcements";
     Layout = "~/Views/_StudentLayout.cshtml";
 }
 
-<h1>Announcements Page</h1>
 
+<div class="row mb-5">
+    @foreach(var announce in Model)
+    {
+            <div class="col-md-6 col-lg-4 mb-3">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h5 class="card-title">@announce.Title</h5>
+                          <h6 class="card-subtitle text-muted">@announce.TeacherName</h6>
+                          <br>
+
+                              <h6>@announce.Text</h6>
+                              <p class="card-text">@announce.PostDate.ToShortDateString()  -  @announce.LastDate.ToShortDateString()</p>
+
+                        </div>
+                      </div>
+                    </div>
+    }                
+    
+</div>

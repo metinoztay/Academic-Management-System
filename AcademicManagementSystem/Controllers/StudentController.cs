@@ -21,7 +21,6 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Timetable()
         {
-            GetActiveUserInformations();
             var studentInformations = dbAcademicMsContext.TblStudents
                     .Find(ActiveUser.Username);
             var lessonList = dbAcademicMsContext.TblLessons
@@ -29,8 +28,8 @@ namespace AcademicManagementSystem.Controllers
                 l.Faculty == studentInformations.Faculty &&
                 l.Class == studentInformations.Class &&
                 l.Course == studentInformations.Course
-                )
-                );
+                ))
+                .OrderBy(l => l.LessonTime);
             return View(lessonList);
 		}
 
@@ -51,7 +50,10 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Announcements()
         {
-            return View();
+            var announcements = dbAcademicMsContext.TblAnnouncements
+                .Where(d => d.LastDate >= DateTime.Now)
+                .OrderBy(d => d.PostDate);
+            return View(announcements);
         }
 
         public IActionResult MyProfile()

@@ -23,50 +23,51 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Lessons()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            var teacherInformations = dbAcademicMsContext.TblTeachers
+                    .Find(ActiveUser.Username);
+            var lessonList = dbAcademicMsContext.TblLessons
+                .Where(l => (l.TeacherId == ActiveUser.Username)
+                )
+                .OrderBy(d => d.LessonDayIndex);
+            return View(lessonList);
         }
 
         public IActionResult EntryNote()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult ByFaculty()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult BySection()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult ByLesson()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult Discontinuity()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult Announcements()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            var announcements = dbAcademicMsContext.TblAnnouncements
+                .Where(d => d.LastDate >= DateTime.Now)
+                .OrderBy(d => d.PostDate);
+            return View(announcements);
         }
 
         public IActionResult MakeAnnouncement()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            return View();
         }
 
         public IActionResult MyProfile()

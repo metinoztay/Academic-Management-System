@@ -1,8 +1,46 @@
-﻿
+﻿@model IEnumerable<AcademicManagementSystem.Models.TblLesson>
 @{
     ViewData["Title"] = "Lessons";
     Layout = "~/Views/_TeacherLayout.cshtml";
+    String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    bool[] lessonInDay = new bool[5];
+    int dayIndex = 0;
+    int tempDayIndex=0;
 }
 
-<h1>Lessons Page</h1>
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Timetable /</span> My Courses</h4>
 
+  
+        <div class="card">
+            <h5 class="card-header">@ActiveUser.Name @ActiveUser.Surname</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>Lesson</th>
+                            <th>Day</th>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>Course</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+
+                        @foreach (var lesson in Model)
+                        {
+                                <tr>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@lesson.LessonName</strong></td>
+                                        <td>@lesson.LessonDay</td>            
+                                    <td>@lesson.LessonTime</td>
+                                                <td>
+                                    @lesson.LessonClass
+                                                </td>
+                                                <td><span class="me-1">@lesson.Course</span></td>
+                                              </tr>
+                        
+                         }
+
+                         </tbody>
+                      </table>
+                    </div>
+        </div>
