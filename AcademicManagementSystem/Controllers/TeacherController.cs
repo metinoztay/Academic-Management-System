@@ -1,6 +1,7 @@
 ﻿using AcademicManagementSystem.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using NuGet.DependencyResolver;
 
 namespace AcademicManagementSystem.Controllers
@@ -68,6 +69,16 @@ namespace AcademicManagementSystem.Controllers
         public IActionResult MakeAnnouncement()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult MakeAnnouncement(TblAnnouncement announce)
+        {
+            announce.PostDate = DateTime.Now;
+            announce.TeacherName = ActiveUser.Name + " " + ActiveUser.Surname;
+            dbAcademicMsContext.TblAnnouncements.Add(announce);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("Announcements");
         }
 
         public IActionResult MyProfile()
