@@ -18,4 +18,10 @@ public partial class TblLesson
     public string Course { get; set; } = null!;
 
     public byte Class { get; set; }
+
+    public string LessonDay { get; set; } = null!;
+
+    public string LessonTime { get; set; } = null!;
+
+    public string LessonClass { get; set; } = null!;
 }

@@ -7,13 +7,9 @@ public partial class TblStudent
 {
     public string StudentId { get; set; } = null!;
 
-    public string Password { get; set; } = null!;
+    public byte Class { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string Faculty { get; set; } = null!;
 
-    public string Surname { get; set; } = null!;
-
-    public string Phone { get; set; } = null!;
-
-    public string Email { get; set; } = null!;
+    public string Course { get; set; } = null!;
 }

@@ -1,298 +1,71 @@
-﻿
+﻿@model IEnumerable<AcademicManagementSystem.Models.TblLesson>
 @{
     ViewData["Title"] = "Timetable";
     Layout = "~/Views/_StudentLayout.cshtml";
+    String[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    bool[] lessonInDay = new bool[5];
+    int dayIndex = 0;
+    int tempDayIndex=0;
 }
 
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Timetable /</span> My Courses</h4>
-<div class="card">
-                <h5 class="card-header">Monday</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
+@foreach(var day in days)
+{
+    @foreach (var lesson in Model)
+    {
+        if (lesson.LessonDay == days[dayIndex])
+        {
+            lessonInDay[dayIndex] = true;
+        }
+    }
+
+    dayIndex++;
+}
+
+@foreach(var day in days)
+{
+    if (lessonInDay[tempDayIndex])
+    {
+        if (day != "Monday")
+        {
+                    <hr class="my-5">
+        }   
+        <div class="card">
+            <h5 class="card-header">@day</h5>
+            <div class="table-responsive text-nowrap">
+                <table class="table">
                     <thead>
-                      <tr>
-                        <th>Lesson</th>
-                        <th>Time</th>
-                        <th>Class</th>
-                        <th>Teacher</th>
-                      </tr>
+                        <tr>
+                            <th>Lesson</th>
+                            <th>Time</th>
+                            <th>Class</th>
+                            <th>Teacher</th>
+                        </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D9
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D10
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D11
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-                        
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                        </td>
-                        <td>lessonTime</td>
-                        <td>
-                          D12
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-                       
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+
+                        @foreach (var lesson in Model)
+                        {
+                            if (lesson.LessonDay == day)
+                            {
+                                <tr>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@lesson.Name</strong></td>
+                                                <td>@lesson.LessonTime</td>
+                                                <td>
+                                    @lesson.LessonClass
+                                                </td>
+                                                <td><span class="me-1">@lesson.TeacherId</span></td>
+                                              </tr>
+                        }
+                    }
+
+                         </tbody>
+                      </table>
+                    </div>
+        </div>
+    }
+    tempDayIndex++;
+}
 
 
-                          <hr class="my-5">
 
-
-<div class="card">
-                <h5 class="card-header">Tuesday</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Lesson</th>
-                        <th>Time</th>
-                        <th>Class</th>
-                        <th>Teacher</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D9
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D10
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D11
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                        </td>
-                        <td>lessonTime</td>
-                        <td>
-                          D12
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-                          <hr class="my-5">
-
-<div class="card">
-                <h5 class="card-header">Wednesday</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Lesson</th>
-                        <th>Time</th>
-                        <th>Class</th>
-                        <th>Teacher</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D9
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D10
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D11
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                        </td>
-                        <td>lessonTime</td>
-                        <td>
-                          D12
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-
-                          <hr class="my-5">
-
-
-<div class="card">
-                <h5 class="card-header">Thursday</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Lesson</th>
-                        <th>Time</th>
-                        <th>Class</th>
-                        <th>Teacher</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D9
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D10
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D11
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                        </td>
-                        <td>lessonTime</td>
-                        <td>
-                          D12
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-                          <hr class="my-5">
-
-<div class="card">
-                <h5 class="card-header">Friday</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr>
-                        <th>Lesson</th>
-                        <th>Time</th>
-                        <th>Class</th>
-                        <th>Teacher</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                      <tr>
-                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>Angular Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D9
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-react fa-lg text-info me-3"></i> <strong>React Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D10
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td><i class="fab fa-vuejs fa-lg text-success me-3"></i> <strong>VueJs Project</strong></td>
-                        <td>lessonTime</td>
-                        <td>
-                          D11
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                      <tr>
-                        <td>
-                          <i class="fab fa-bootstrap fa-lg text-primary me-3"></i> <strong>Bootstrap Project</strong>
-                        </td>
-                        <td>lessonTime</td>
-                        <td>
-                          D12
-                        </td>
-                        <td><span class="me-1">teacherName</span></td>
-
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>

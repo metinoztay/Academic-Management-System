@@ -21,32 +21,37 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Timetable()
         {
-			GetActiveUserInformations();
-            return View(activeStudent);
+            GetActiveUserInformations();
+            var studentInformations = dbAcademicMsContext.TblStudents
+                    .Find(ActiveUser.Username);
+            var lessonList = dbAcademicMsContext.TblLessons
+                .Where(l => (
+                l.Faculty == studentInformations.Faculty &&
+                l.Class == studentInformations.Class &&
+                l.Course == studentInformations.Course
+                )
+                );
+            return View(lessonList);
 		}
 
         public IActionResult ViewNotes()
         {
-            GetActiveUserInformations();
-            return View(activeStudent);
+            return View();
         }
 
         public IActionResult CourseSelection()
         {
-            GetActiveUserInformations();
-            return View(activeStudent);
+            return View();
         }
 
         public IActionResult Discontinuity()
         {
-            GetActiveUserInformations();
-            return View(activeStudent);
+            return View();
         }
 
         public IActionResult Announcements()
         {
-            GetActiveUserInformations();
-            return View(activeStudent);
+            return View();
         }
 
         public IActionResult MyProfile()
