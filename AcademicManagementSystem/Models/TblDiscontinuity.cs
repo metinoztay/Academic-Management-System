@@ -9,6 +9,8 @@ public partial class TblDiscontinuity
 
     public string LessonCode { get; set; } = null!;
 
+    public string LessonName { get; set; } = null!;
+
     public string StudentId { get; set; } = null!;
 
     public string StudentName { get; set; } = null!;

@@ -4,7 +4,6 @@
     Layout = "~/Views/_TeacherLayout.cshtml";
     string[] weeks = { "Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7",
                         "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14"};
-    bool[] discontinuity = new bool[14];
 }
 
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Teacher /</span> Discontinuity</h4>
@@ -164,7 +163,7 @@
                                             }
                                             break;
                                         case "Week11":
-                                            @if (student.Week10 == true)
+                                            @if (student.Week11 == true)
                                             {
                                                                                                                 <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
@@ -204,7 +203,7 @@
                                             }
                                             break;
                                         default:
-                                            // code block
+                                            // 
                                             break;
                                     }
                                 

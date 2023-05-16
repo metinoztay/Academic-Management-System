@@ -50,6 +50,7 @@ public partial class DbAcademicMsContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("ID");
             entity.Property(e => e.LessonCode).HasMaxLength(20);
+            entity.Property(e => e.LessonName).HasMaxLength(50);
             entity.Property(e => e.StudentId)
                 .HasMaxLength(50)
                 .HasColumnName("StudentID");

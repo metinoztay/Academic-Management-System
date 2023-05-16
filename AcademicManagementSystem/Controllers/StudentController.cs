@@ -45,7 +45,10 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Discontinuity()
         {
-            return View();
+            var discontinuities = dbAcademicMsContext.TblDiscontinuities
+                .Where(s => s.StudentId == ActiveUser.Username)
+                .OrderBy(l => l.LessonName);
+            return View(discontinuities);
         }
 
         public IActionResult Announcements()
