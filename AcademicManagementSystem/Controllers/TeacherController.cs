@@ -55,7 +55,25 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Discontinuity()
         {
+            var lessons = dbAcademicMsContext.TblLessons
+                .Where(l => l.TeacherId == ActiveUser.Username).ToList();
+            foreach (var lesson in lessons)
+            {
+                TeacherLessons.lessonNames.Add(lesson.LessonName);
+            }
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult Discontinuity(TblLesson lesson)
+        {
+            string LessonCode = dbAcademicMsContext.TblLessons
+                .FirstOrDefault(l => l.LessonName == lesson.LessonName).Code;
+            var discontinuityTable = dbAcademicMsContext.TblDiscontinuities
+                .Where(s => s.LessonCode == LessonCode)
+                .OrderBy(s => s.StudentName);
+
+            return View(discontinuityTable);
         }
 
         public IActionResult Announcements()
@@ -90,7 +108,7 @@ namespace AcademicManagementSystem.Controllers
         [HttpPost]
         public IActionResult MyProfile(TblUser teacher)
         {
-            teacher.Authority = "Student";
+            teacher.Authority = "Teacher";
             if (teacher.Province == null)
                 teacher.Province = ActiveUser.Province;
 

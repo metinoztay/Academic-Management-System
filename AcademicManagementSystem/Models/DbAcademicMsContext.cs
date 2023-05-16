@@ -17,6 +17,8 @@ public partial class DbAcademicMsContext : DbContext
 
     public virtual DbSet<TblAnnouncement> TblAnnouncements { get; set; }
 
+    public virtual DbSet<TblDiscontinuity> TblDiscontinuities { get; set; }
+
     public virtual DbSet<TblLesson> TblLessons { get; set; }
 
     public virtual DbSet<TblStudent> TblStudents { get; set; }
@@ -40,6 +42,18 @@ public partial class DbAcademicMsContext : DbContext
             entity.Property(e => e.PostDate).HasColumnType("date");
             entity.Property(e => e.TeacherName).HasMaxLength(50);
             entity.Property(e => e.Text).HasColumnType("text");
+        });
+
+        modelBuilder.Entity<TblDiscontinuity>(entity =>
+        {
+            entity.ToTable("tblDiscontinuity");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.LessonCode).HasMaxLength(20);
+            entity.Property(e => e.StudentId)
+                .HasMaxLength(50)
+                .HasColumnName("StudentID");
+            entity.Property(e => e.StudentName).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TblLesson>(entity =>
