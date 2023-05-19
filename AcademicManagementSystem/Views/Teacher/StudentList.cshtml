@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewData["Title"] = "StudentList";
+    Layout = "~/Views/_TeacherLayout.cshtml";
+}
+
+<div class="card">
+<div class="card-body">
+    <form action="StudentList" method="post">
+                      <div class="mt-2 mb-3">
+                        <label for="defaultSelect" class="form-label">Faculty Select</label>
+                        <select id="facultySelect" name="value1" class="form-select form-select">
+                          <option value="0">Faculty Select</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                          
+                        </select>
+                      </div>
+                      <div class="mb-3">
+                        <label for="defaultSelect" class="form-label">Section Select</label>
+                        <select type="submit" id="sectionSelect" name="value2" class="form-select">
+                          <option value="0">Section Select</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                      <div>
+                        <label for="defaultSelect" class="form-label">Lesson select</label>
+                        <select id="lessonSelect" name="value3" class="form-select form-select">
+                          <option value="0">Lesson select</option>
+                          <option value="1">One</option>
+                          <option value="2">Two</option>
+                          <option value="3">Three</option>
+                        </select>
+                      </div>
+                        <button type="submit" class="btn"> button</button>
+                      </form>
+                    </div>
+</div>

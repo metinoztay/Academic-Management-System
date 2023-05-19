@@ -43,6 +43,10 @@ namespace AcademicManagementSystem.Controllers
                 {
                     return RedirectToAction("Index", "Student", userInformations);
                 }
+                else
+                {
+                    return RedirectToAction("Index", "Admin", userInformations);
+                }
             }
             return View();
 		}

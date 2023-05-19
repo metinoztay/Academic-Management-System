@@ -38,17 +38,13 @@ namespace AcademicManagementSystem.Controllers
             return View();
         }
 
-        public IActionResult ByFaculty()
+        public IActionResult StudentList()
         {
             return View();
         }
 
-        public IActionResult BySection()
-        {
-            return View();
-        }
-
-        public IActionResult ByLesson()
+        [HttpPost]
+        public IActionResult StudentList(string value1, string value2, string value3)
         {
             return View();
         }
