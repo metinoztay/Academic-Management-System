@@ -40,7 +40,63 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult CourseSelection()
         {
-            return View();
+            var studentsLessons = dbAcademicMsContext.TblStudentsLessons
+                .Where(l => l.StudentId == ActiveUser.Username).ToList();
+            StudentLessons.studentLessons.Clear();
+            foreach (var studentLesson in studentsLessons)
+            {
+                var lessonInformations = dbAcademicMsContext.TblLessons.Find(studentLesson.LessonCode);
+                StudentLessons.studentLessons.Add(lessonInformations);
+            }
+
+            var studentInformations = dbAcademicMsContext.TblStudents
+                .Find(ActiveUser.Username);
+
+            var studentLessons = dbAcademicMsContext.TblLessons
+                .Where(l => l.Class == studentInformations.Class
+                        && l.Course == studentInformations.Course)
+                .OrderBy(l=>l.LessonName).ToList();
+            
+            List<TblLesson> deleteLessons = new List<TblLesson>();
+            foreach(var lesson in studentLessons)
+            {
+                foreach(var l in StudentLessons.studentLessons)
+                {
+                    if (l.Code == lesson.Code)
+                    {
+                        deleteLessons.Add(lesson);
+                    }
+                }
+            }
+
+            foreach (var lesson in deleteLessons)
+            {
+                studentLessons.Remove(lesson);
+            }
+
+            return View(studentLessons);
+        }
+
+        [HttpPost]
+        public IActionResult CourseAdd(String lessonCode)
+        {
+            var addLesson = new TblStudentsLesson();
+            addLesson.StudentId = ActiveUser.Username;
+            addLesson.LessonCode = lessonCode;
+            dbAcademicMsContext.TblStudentsLessons.Add(addLesson);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("CourseSelection");
+        }
+
+        [HttpPost]
+        public IActionResult CourseDelete(String lessonCode)
+        {
+            var deleteLesson = dbAcademicMsContext.TblStudentsLessons
+                .FirstOrDefault(x => x.StudentId == ActiveUser.Username
+                && x.LessonCode == lessonCode);
+            dbAcademicMsContext.TblStudentsLessons.Remove(deleteLesson);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("CourseSelection");
         }
 
         public IActionResult Discontinuity()
@@ -61,8 +117,8 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult MyProfile()
         {
-            GetActiveUserInformations();
-            return View(activeStudent);
+            var student = dbAcademicMsContext.TblUsers.Find(ActiveUser.Username);
+            return View(student);
         }
 
         [HttpPost]

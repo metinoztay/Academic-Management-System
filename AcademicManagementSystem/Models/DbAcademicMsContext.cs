@@ -23,6 +23,8 @@ public partial class DbAcademicMsContext : DbContext
 
     public virtual DbSet<TblStudent> TblStudents { get; set; }
 
+    public virtual DbSet<TblStudentsLesson> TblStudentsLessons { get; set; }
+
     public virtual DbSet<TblTeacher> TblTeachers { get; set; }
 
     public virtual DbSet<TblUser> TblUsers { get; set; }
@@ -87,6 +89,17 @@ public partial class DbAcademicMsContext : DbContext
                 .HasColumnName("StudentID");
             entity.Property(e => e.Course).HasMaxLength(50);
             entity.Property(e => e.Faculty).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TblStudentsLesson>(entity =>
+        {
+            entity.ToTable("tblStudentsLessons");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.LessonCode).HasMaxLength(50);
+            entity.Property(e => e.StudentId)
+                .HasMaxLength(50)
+                .HasColumnName("StudentID");
         });
 
         modelBuilder.Entity<TblTeacher>(entity =>

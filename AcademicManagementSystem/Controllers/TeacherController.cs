@@ -57,6 +57,7 @@ namespace AcademicManagementSystem.Controllers
         {
             var lessons = dbAcademicMsContext.TblLessons
                 .Where(l => l.TeacherId == ActiveUser.Username).ToList();
+            TeacherLessons.lessonNames.Clear();
             foreach (var lesson in lessons)
             {
                 TeacherLessons.lessonNames.Add(lesson.LessonName);
@@ -74,6 +75,13 @@ namespace AcademicManagementSystem.Controllers
                 .OrderBy(s => s.StudentName);
 
             return View(discontinuityTable);
+        }
+
+        [HttpPost]
+        public IActionResult DiscontinuitySave(TblDiscontinuity discontinuity)
+        {
+
+            return View();
         }
 
         public IActionResult Announcements()
@@ -101,8 +109,8 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult MyProfile()
         {
-            GetActiveUserInformations();
-            return View(activeTeacher);
+            var teacher = dbAcademicMsContext.TblUsers.Find(ActiveUser.Username);
+            return View(teacher);
         }
 
         [HttpPost]

@@ -3,7 +3,7 @@
     ViewData["Title"] = "Discontinuity";
     Layout = "~/Views/_TeacherLayout.cshtml";
     string[] weeks = { "Week1", "Week2", "Week3", "Week4", "Week5", "Week6", "Week7",
-                        "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14"};
+                        "Week8", "Week9", "Week10", "Week11", "Week12", "Week13", "Week14","Button"};
 }
 
 <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Teacher /</span> Discontinuity</h4>
@@ -15,7 +15,7 @@
                     <div class="col-md-9">
                       <label class="form-label" for="selectTypeOpt">Lesson</label>
                       <select id="selectTypeOpt" name="LessonName" class="form-select color-dropdown">
-                        <option value="bg-primary" selected="">Select a lesson</option>
+                        <option value="" selected="">Select a lesson</option>
                     @foreach(var lesson in TeacherLessons.lessonNames)
                     {
                             <option value=@lesson>@lesson</option>
@@ -43,18 +43,28 @@
                       <thead>
                         <tr>
                           <th>Student</th>
-                        @for(int i = 1; i <=14; i++)
+                        @for(int i = 1; i <=15; i++)
                         {
-                                <th>@i</th>
-                        }
+                            @if(i!=15)
+                                {
+                                    <th>@i</th>
+                                }                                
+                                else
+                                {
+                                    <th>Save</th>
+                                }
+                            }
                         </tr>
                       </thead>
                       <tbody>
 
                           @foreach(var student in Model)
-                          {
-                            <tr>
-                              <td>
+                        {
+                              <form action="DiscontinuitySave" method="Post">
+
+                                      <tr>
+                                             
+                                <td>
                                 <i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@student.StudentName</strong>
                               </td>
 
@@ -65,153 +75,156 @@
                                         case "Week1":
                                             @if (student.Week1 == true)
                                             {
-                                                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                               <td><input class="form-check-input" name="Week1" value="" type="checkbox" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                               <td><input class="form-check-input" name="Week1" value="" type="checkbox" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week2":
                                             @if (student.Week2 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                   <td><input class="form-check-input" name="Week2" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                   <td><input class="form-check-input" name="Week2" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week3":
                                             @if (student.Week3 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                   <td><input class="form-check-input" name="Week3" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                   <td><input class="form-check-input" name="Week3" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week4":
                                             @if (student.Week4 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                 <td><input class="form-check-input" name="Week4" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                 <td><input class="form-check-input" name="Week4" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week5":
                                             @if (student.Week5 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                <td><input class="form-check-input" name="Week5" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                <td><input class="form-check-input" name="Week5" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week6":
                                             @if (student.Week6 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                <td><input class="form-check-input" name="Week6" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                <td><input class="form-check-input" name="Week6" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week7":
                                             @if (student.Week7 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                               <td><input class="form-check-input" name="Week7" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                               <td><input class="form-check-input" name="Week7" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week8":
                                             @if (student.Week8 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                              <td><input class="form-check-input" name="Week8" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                             <td><input class="form-check-input" name="Week8" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week9":
                                             @if (student.Week9 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                  <td><input class="form-check-input" name="Week9" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                                  <td><input class="form-check-input" name="Week9" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week10":
                                             @if (student.Week10 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                                 <td><input class="form-check-input" name="Week10" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                               <td><input class="form-check-input" name="Week10" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week11":
                                             @if (student.Week11 == true)
                                             {
-                                                                                                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                              <td><input class="form-check-input" name="Week11" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                                                <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                              <td><input class="form-check-input" name="Week11" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week12":
                                             @if (student.Week12 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                              <td><input class="form-check-input" name="Week12" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                              <td><input class="form-check-input" name="Week12" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week13":
                                             @if (student.Week13 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                              <td><input class="form-check-input" name="Week13" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                              <td><input class="form-check-input" name="Week13" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         case "Week14":
                                             @if (student.Week14 == true)
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked></td>
+                                              <td><input class="form-check-input" name="Week14" type="checkbox" value="" id="defaultCheck1" checked></td>
                                             }
                                             else
                                             {
-                                                                                        <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" ></td>
+                                              <td><input class="form-check-input" name="Week14" type="checkbox" value="" id="defaultCheck1" ></td>
                                             }
                                             break;
                                         default:
-                                            // 
+                                             <td>
+                                                 <button type="submit" class="btn btn-icon btn-primary">
+                                                  <span class="tf-icons bx bx-save" style="color:#ffffff"></span>
+                                                </button> 
+                                                                 </td>
                                             break;
                                     }
-                                
-                                    
-                            }                          
+                            }     
+                                      
                              </tr>
-                          }
-                       
+                                       </form>        
+                          }                       
                       </tbody>
                     </table>
                   </div>

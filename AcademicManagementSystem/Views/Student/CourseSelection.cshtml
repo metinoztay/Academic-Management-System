@@ -1,8 +1,86 @@
-﻿
+﻿@model IEnumerable<AcademicManagementSystem.Models.TblLesson>
 @{
     ViewData["Title"] = "CourseSelection";
     Layout = "~/Views/_StudentLayout.cshtml";
 }
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Student /</span> Course Selection</h4>
 
-<h1>Course Selection Page</h1>
+@if (StudentLessons.studentLessons.Count != 0)
+{
+        <div class="card">
+                    <h5 class="card-header">Selected Lessons</h5>
+                    <div class="table-responsive text-nowrap">
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th>Lesson Name</th>
+                            <th>Teacher Name</th>
+                            <th>Faculty</th>
+                            <th>Course</th>
+                            <th>Credit</th>
+                            <th>Action</th>
+                          </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                    @foreach (var lesson in StudentLessons.studentLessons)
+                    {
+                            <form action="CourseDelete" method="post">
+                            <tr>
+                                <td hidden><input type="hidden" name="LessonCode" value="@lesson.Code"/></td>
+                                <td><strong> @lesson.LessonName</strong> </td>
+                                <td> @lesson.TeacherName </td>
+                                <td> @lesson.Faculty</td>
+                                <td> @lesson.Course</td>
+                                <td> @lesson.Credit</td>
+                                        <td> <button type="submit" class="btn btn-icon btn-danger">
+                                          <span class="tf-icons bx bx-minus" style="color:#ffffff"></span>
+                                        </button></td>
+                            </tr>
+                            </form>
+                    }
 
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                      <hr class="my-3">
+}
+
+
+
+<div class="card">
+                <h5 class="card-header">Select lessons from list</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th>Lesson Name</th>
+                        <th>Teacher Name</th>
+                        <th>Faculty</th>
+                        <th>Course</th>
+                        <th>Credit</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                @foreach(var lesson in Model)
+                {
+                    <form action="CourseAdd" method="post">
+                    <tr>
+                        <td hidden><input type="hidden" name="LessonCode" value="@lesson.Code"/></td>
+                        <td><strong> @lesson.LessonName</strong> </td>
+                        <td> @lesson.TeacherName </td>
+                        <td> @lesson.Faculty</td>
+                        <td> @lesson.Course</td>
+                        <td> @lesson.Credit</td>
+                                <td> <button type="submit" class="btn btn-icon btn-success">
+                                  <span class="tf-icons bx bx-plus" style="color:#ffffff"></span>
+                                </button></td>
+                    </tr>
+                    </form>
+                }
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
