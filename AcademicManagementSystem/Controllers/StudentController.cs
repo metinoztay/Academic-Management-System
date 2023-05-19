@@ -30,7 +30,6 @@ namespace AcademicManagementSystem.Controllers
                     .FirstOrDefault(x => x.Code == l.LessonCode);
                 lessonList.Add(lesson);
             }
-
             return View(lessonList);
 		}
 
@@ -86,6 +85,15 @@ namespace AcademicManagementSystem.Controllers
             addLesson.LessonCode = lessonCode;
             dbAcademicMsContext.TblStudentsLessons.Add(addLesson);
             dbAcademicMsContext.SaveChanges();
+
+            var discLesson = new TblDiscontinuity();
+            discLesson.StudentId = ActiveUser.Username;
+            discLesson.StudentName = ActiveUser.Name + " " + ActiveUser.Surname;
+            discLesson.LessonCode = lessonCode;
+            discLesson.LessonName = dbAcademicMsContext.TblLessons.Find(lessonCode).LessonName;
+            dbAcademicMsContext.TblDiscontinuities.Add(discLesson);
+            dbAcademicMsContext.SaveChanges();
+
             return RedirectToAction("CourseSelection");
         }
 
@@ -96,6 +104,12 @@ namespace AcademicManagementSystem.Controllers
                 .FirstOrDefault(x => x.StudentId == ActiveUser.Username
                 && x.LessonCode == lessonCode);
             dbAcademicMsContext.TblStudentsLessons.Remove(deleteLesson);
+            dbAcademicMsContext.SaveChanges();
+
+            var deleteDiscc = dbAcademicMsContext.TblDiscontinuities
+                .FirstOrDefault(x => x.StudentId == ActiveUser.Username
+                && x.LessonCode == lessonCode);
+            dbAcademicMsContext.TblDiscontinuities.Remove(deleteDiscc);
             dbAcademicMsContext.SaveChanges();
             return RedirectToAction("CourseSelection");
         }
