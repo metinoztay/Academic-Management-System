@@ -21,15 +21,16 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Timetable()
         {
-            var studentInformations = dbAcademicMsContext.TblStudents
-                    .Find(ActiveUser.Username);
-            var lessonList = dbAcademicMsContext.TblLessons
-                .Where(l => (
-                l.Faculty == studentInformations.Faculty &&
-                l.Class == studentInformations.Class &&
-                l.Course == studentInformations.Course
-                ))
-                .OrderBy(l => l.LessonTime);
+            var studentInformations = dbAcademicMsContext.TblStudentsLessons
+                    .Where(i => i.StudentId == ActiveUser.Username).ToList();
+            List<TblLesson> lessonList = new List<TblLesson>();
+            foreach (var l in studentInformations)
+            {
+                var lesson = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(x => x.Code == l.LessonCode);
+                lessonList.Add(lesson);
+            }
+
             return View(lessonList);
 		}
 
