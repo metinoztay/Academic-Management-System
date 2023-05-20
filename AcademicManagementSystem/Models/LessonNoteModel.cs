@@ -3,13 +3,15 @@ using System.Collections.Generic;
 
 namespace AcademicManagementSystem.Models;
 
-public partial class TblStudentsLesson
+public class LessonNoteModel
 {
     public int Id { get; set; }
 
-    public string StudentId { get; set; } = null!;
-
-    public string LessonCode { get; set; } = null!;
+    public string? StudentId { get; set; }
+    public string? StudentName { get; set; }
+    public string? LessonCode { get; set; }
+    public string? LessonName { get; set; }
+    public string? TeacherName { get; set; }
 
     public int? MidtermNote { get; set; }
 

@@ -35,7 +35,28 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult ViewNotes()
         {
-            return View();
+            var lessons = dbAcademicMsContext.TblStudentsLessons
+                .Where(l => l.StudentId == ActiveUser.Username).ToList();
+
+            List<LessonNoteModel> lessonsList = new List<LessonNoteModel>();
+            foreach (var l in lessons)
+            {
+                LessonNoteModel less = new LessonNoteModel();
+                less.StudentId = ActiveUser.Username;
+                less.LessonCode = l.LessonCode;
+                less.MidtermNote = l.MidtermNote;
+                less.FinalNote = l.FinalNote;
+                less.CompleteNote = l.CompleteNote;
+                less.Average=l.Average;
+                less.LetterGrade = l.LetterGrade;
+                less.TeacherName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(t => t.Code == l.LessonCode).TeacherName;
+                less.LessonName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(t => t.Code == l.LessonCode).LessonName;
+
+                lessonsList.Add(less);  
+            }
+            return View(lessonsList);
         }
 
         public IActionResult CourseSelection()

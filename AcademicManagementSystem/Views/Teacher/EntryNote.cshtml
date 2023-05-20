@@ -1,8 +1,98 @@
-﻿
+﻿@model IEnumerable<AcademicManagementSystem.Models.LessonNoteModel>
 @{
     ViewData["Title"] = "EntryNote";
     Layout = "~/Views/_TeacherLayout.cshtml";
+    int index = 0;
+  
 }
 
-<h1>Entry Note Page</h1>
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Teacher /</span> Entry Note</h4>
+<div class="card mb-4">
+                <div class="card-body">
+                <form id="lessonSelecting" method="POST">
+                  <div class="row gx-3 gy-3 align-items-center">
+                    <div class="col-md-9">
+                      <label class="form-label" for="selectTypeOpt">Lesson</label>
+                      <select id="selectTypeOpt" name="Code" class="form-select color-dropdown">
+                        <option value="" selected="">Select a lesson</option>
+                        @foreach (var lesson in TeacherLessons.lessonNames)
+                        {
 
+                            <option value=@TeacherLessons.lessonCodes[index]>@lesson</option>                  
+                            index++;
+                        }
+                     </select>
+
+                    </div>  
+                    <div class="col-md-3">
+                      <label class="form-label" for="showToastPlacement">&nbsp;</label>
+                      <button type="submit" class="btn btn-primary d-block">Select</button>
+                    </div>
+                  </div>
+                   </form>
+                </div>
+              </div>
+
+@if (Model != null)
+{
+    <div class="card">
+        <h5 class="card-header">Student List</h5>
+        <div class="table-responsive text-nowrap">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Student Name</th>
+                        <th>Midterm Note</th>
+                        <th>Final Note</th>
+                        <th>Average</th>
+                        <th>Complete Note</th>
+                        <th>Letter Grade</th>
+                            <th>Save</th>
+                    </tr>
+                </thead>
+                <tbody class="table-border-bottom-0">
+                    @foreach (var s in Model)
+                    {
+                        <form action="SaveNote" method="post">
+                            <input type="hidden" name="StudentID" value=@s.StudentId>
+                            <input type="hidden" name="LessonCode" value=@s.LessonCode>
+                            <input type="hidden" name="Id" value=@s.Id>
+                            <tr>
+                               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@s.StudentName</strong></td>
+                                <td><input type="text" maxlength="3" style="width:55px; text-align: right;" class="form-control" name="MidtermNote" value=@s.MidtermNote></td>
+                                <td><input type="text" maxlength="3" style="width:55px; text-align: right;" class="form-control" name="FinalNote" value=@s.FinalNote></td>
+                                <td>@s.Average</td>
+                                <td><input type="text" maxlength="3" style="width:55px; text-align: right;" class="form-control" name="CompleteNote" value=@s.CompleteNote></td>
+                                <td>
+                                    @if (s.LetterGrade == "AA" || s.LetterGrade == "BA"
+                || s.LetterGrade == "BB" || s.LetterGrade == "CB" || s.LetterGrade == "CC")
+                                    {
+                                        <span class="badge bg-success">@s.LetterGrade</span>
+                                    }
+                                    else if (s.LetterGrade == null)
+                                    {
+
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-danger">@s.LetterGrade</span>
+                                    }
+
+                                     </td>
+                                            <td>
+                                                     <button type="submit" class="btn btn-icon btn-primary">
+                                                      <span class="tf-icons bx bx-save" style="color:#ffffff"></span>
+                                                    </button> 
+                                            </td>
+                        </tr>
+                            </form>
+                }
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+ }

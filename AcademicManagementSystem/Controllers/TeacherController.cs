@@ -35,7 +35,102 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult EntryNote()
         {
+            var lessons = dbAcademicMsContext.TblLessons
+                .Where(l => l.TeacherId == ActiveUser.Username).ToList();
+            TeacherLessons.lessonNames.Clear();
+            foreach (var lesson in lessons)
+            {
+                TeacherLessons.lessonCodes.Add(lesson.Code);
+                TeacherLessons.lessonNames.Add(lesson.LessonName);
+            }
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult EntryNote(TblLesson lesson)
+        {
+            var studentList = dbAcademicMsContext.TblStudentsLessons
+                .Where(l => l.LessonCode == lesson.Code).ToList();
+
+            List<LessonNoteModel> studentModelList = new List<LessonNoteModel>();
+
+            foreach (var student in studentList)
+            {
+                LessonNoteModel less = new LessonNoteModel();
+                less.StudentId = student.StudentId;
+                less.StudentName =dbAcademicMsContext.TblUsers
+                    .FirstOrDefault(s => s.Username == student.StudentId).Name + " " +
+                    dbAcademicMsContext.TblUsers
+                    .FirstOrDefault(s => s.Username == student.StudentId).Surname;
+                less.MidtermNote = student.MidtermNote;
+                less.FinalNote = student.FinalNote;
+                less.CompleteNote = student.CompleteNote;
+                less.Average = student.Average;
+                less.LetterGrade = student.LetterGrade;
+                less.LessonCode = lesson.Code;
+                less.Id = student.Id;
+                studentModelList.Add(less);
+            }
+
+            return View(studentModelList);
+        }
+
+        [HttpPost]
+        public IActionResult SaveNote(LessonNoteModel lessonNote)
+        {
+            TblStudentsLesson studentNote = new TblStudentsLesson();
+            studentNote.StudentId = lessonNote.StudentId;
+            studentNote.MidtermNote = lessonNote.MidtermNote;
+            studentNote.FinalNote = lessonNote.FinalNote;
+            studentNote.CompleteNote = lessonNote.CompleteNote;
+            studentNote.LessonCode = lessonNote.LessonCode;
+            studentNote.Id = lessonNote.Id;
+
+            float average;
+            if (lessonNote.FinalNote == null)
+            {
+                average = 0;
+            }
+            else if (lessonNote.CompleteNote == null)
+            {
+                average = (float)lessonNote.MidtermNote *0.4f + (float)lessonNote.FinalNote *0.6f;
+            }
+            else
+            {
+                average = (float)lessonNote.MidtermNote * 0.4f + (float)lessonNote.CompleteNote * 0.6f;
+            }
+            studentNote.Average = (int)average;
+            
+
+            string letterNote;
+            if (average >= 88)
+                letterNote = "AA";
+            else if (average >= 81)
+                letterNote = "BA";
+            else if (average >= 74)
+                letterNote = "BB";
+            else if (average >= 67)
+                letterNote = "CB";
+            else if (average >= 60)
+                letterNote = "CC";
+            else if (average >= 53)
+                letterNote = "DC";
+            else if (average >= 46)
+                letterNote = "DD";
+            else if (average >= 0)
+                letterNote = "FD";
+            else
+                letterNote = "FF";
+
+            studentNote.LetterGrade = letterNote;
+
+            dbAcademicMsContext.TblStudentsLessons.Update(studentNote);
+            dbAcademicMsContext.SaveChanges();
+
+            TblLesson lesson = dbAcademicMsContext.TblLessons
+                .FirstOrDefault(l => l.Code == lessonNote.LessonCode);
+            return RedirectToAction("EntryNote","Teacher", lesson);
+            //not kaydedildiğinde seçili olan dersin tekrar seçilmesi gerek?
         }
 
         public IActionResult StudentList()
