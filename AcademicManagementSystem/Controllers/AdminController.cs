@@ -16,6 +16,80 @@ namespace AcademicManagementSystem.Controllers
             return View(activeAdmin);
         }
 
+        public IActionResult TeacherAdd()
+        {
+            return View();
+        }
+
+        public IActionResult TeacherControl()
+        {
+            return View();
+        }
+        public IActionResult StudentAdd()
+        {
+            return View();
+        }
+
+        public IActionResult StudentControl()
+        {
+            return View();
+        }
+
+        public IActionResult LessonAdd()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LessonAdd(TblLesson lesson)
+        {
+            dbAcademicMsContext.TblLessons.Add(lesson);
+            dbAcademicMsContext.SaveChanges();
+            return View();
+        }
+
+        public IActionResult LessonControl()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LessonControl(string code)
+        {
+            TeachersList.teachers.Clear();
+            TeachersList.teachers = dbAcademicMsContext.TblUsers
+                .Where(t => t.Authority =="Teacher").ToList();
+
+            var lesson = dbAcademicMsContext.TblLessons
+                .FirstOrDefault(l => l.Code == code);
+
+            return View(lesson);
+        }
+
+        [HttpPost]
+        public IActionResult SaveLesson(TblLesson lesson)
+        {
+            string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+            lesson.LessonDay = days[(int)lesson.LessonDayIndex];
+            lesson.TeacherName = dbAcademicMsContext.TblUsers
+                .FirstOrDefault(t => t.Username == lesson.TeacherId).Name + " " +
+                dbAcademicMsContext.TblUsers
+                .FirstOrDefault(t => t.Username == lesson.TeacherId).Surname;
+            dbAcademicMsContext.TblLessons.Update(lesson);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("LessonControl");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteLesson(string code)
+        {
+            var lesson = dbAcademicMsContext.TblLessons
+                .FirstOrDefault(l => l.Code == code);
+            dbAcademicMsContext.TblLessons.Remove(lesson);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("LessonControl");
+        }
+
         private void GetActiveUserInformations()
         {
             activeAdmin.Username = ActiveUser.Username;

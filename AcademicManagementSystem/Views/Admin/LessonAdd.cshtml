@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "LessonAdd";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="card mb-4">
+                    <h5 class="card-header">Lesson Add</h5>
+                     <div class="card-body">
+                      <form method="post">
+                          <label for="defaultFormControlInput" class="form-label">Lesson Code</label>
+                        <input type="text" name="Code" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                         <label for="defaultFormControlInput" class="form-label">Lesson Name</label>
+                        <input type="text" name="LessonName" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                        <label for="defaultFormControlInput" class="form-label">Lesson Credit</label>
+                        <input type="text" name="Credit" maxlength="3" style="width:55px; text-align: right;" class="form-control" name="CompleteNote">
+
+                        <label for="defaultFormControlInput" class="form-label">Faculty</label>
+                        <input type="text" name="Faculty" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+                                        
+                        <label for="defaultFormControlInput" class="form-label">Course</label>
+                        <input type="text" name="Course" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                        <label for="exampleFormControlSelect1" class="form-label">Class</label>
+                        <select name="class" class="form-select" id="exampleFormControlSelect1" aria-label="Default select example">
+                          <option selected="">Select a lesson</option>
+                          <option value="11">1.Class 1.Section</option>
+                          <option value="12">1.Class 2.Section</option>
+                          <option value="21">2.Class 1.Section</option>
+                          <option value="22">2.Class 2.Section</option>
+                          <option value="31">3.Class 1.Section</option>
+                          <option value="32">3.Class 2.Section</option>
+                          <option value="41">4.Class 1.Section</option>
+                          <option value="42">4.Class 2.Section</option>
+                        </select>
+
+                         <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" value="MyProfile">Add Lesson</button>
+                        </div>
+                        </form>
+                  </div>

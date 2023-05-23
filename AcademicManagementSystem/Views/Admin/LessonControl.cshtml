@@ -1,0 +1,109 @@
+﻿@model AcademicManagementSystem.Models.TblLesson
+@{
+    ViewData["Title"] = "LessonControl";
+    Layout = "~/Views/_AdminLayout.cshtml";
+    string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
+    int dayIndex = 1;
+}
+
+<form method="post">
+<div class="card mb-4">
+ <div class="card-body">   
+                          <label for="defaultFormControlInput" class="form-label">Lesson Code</label>
+                        <input type="text" name="Code" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+                        <button formaction="LessonControl" type="submit" class="btn btn-primary me-2" >Get Lesson</button>
+      </div>
+      </div>
+</form>
+
+
+   @if(Model!=null)
+   {
+<div class="card mb-4">
+                    <h5 class="card-header">Lesson Add</h5>
+                    <form method="post">
+                     <div class="card-body">   
+                          <label for="defaultFormControlInput" class="form-label">Lesson Code</label>
+                            <input type="text" name="Code" value="@Model.Code" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                         <label for="defaultFormControlInput" class="form-label">Lesson Name</label>
+                            <input type="text" name="LessonName" value="@Model.LessonName" class="form-control" aria-describedby="defaultFormControlHelp">
+
+                        <label for="defaultFormControlInput" class="form-label">Lesson Credit</label>
+                        <input type="text" name="Credit"  value="@Model.Credit" maxlength="3" style="width:55px; text-align: right;" class="form-control">
+
+                        <label for="defaultFormControlInput" class="form-label">Faculty</label>
+                        <input type="text" name="Faculty"  value="@Model.Faculty"class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                        <label for="defaultFormControlInput" class="form-label">Course</label>
+                        <input type="text" name="Course"  value="@Model.Course" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
+
+                        <label for="exampleFormControlSelect1" class="form-label">Class</label>
+                        <select name="class" value="@Model.Class" class="form-select" id="selectLessonOption" aria-label="Default select example">
+                          <option value="11">1.Class 1.Section</option>
+                          <option value="12">1.Class 2.Section</option>
+                          <option value="21">2.Class 1.Section</option>
+                          <option value="22">2.Class 2.Section</option>
+                          <option value="31">3.Class 1.Section</option>
+                          <option value="32">3.Class 2.Section</option>
+                          <option value="41">4.Class 1.Section</option>
+                          <option value="42">4.Class 2.Section</option>
+                        </select>
+
+                            <div class="divider">
+                            <div class="divider-text">Details
+                            </div>
+                          </div>
+
+                       <label for="exampleFormControlSelect1" class="form-label">Teacher</label>
+                            <select name="TeacherID" class="form-select" id="selectLessonOption" aria-label="Default select example">
+                                 <option value="">Select a teacher</option>
+                             @foreach(var teacher in TeachersList.teachers)
+                             {
+                                  <option value="@teacher.Username">@teacher.Name @teacher.Surname</option>
+                             }
+
+                            </select>
+                        
+                                <label for="exampleFormControlSelect1" class="form-label">Day</label>
+                                <select name="LessonDayIndex" class="form-select" id="selectLessonDayOption" aria-label="Default select example">
+                                     <option value="">Select a day</option>
+                            @foreach (var day in days)
+                            {
+                                <option value=@dayIndex>@day</option>
+                                dayIndex++;
+                            }
+
+                                </select>
+
+                            <label for="defaultFormControlInput" class="form-label">Time</label>
+                                <input type="text" name="LessonTime"  value="@Model.LessonTime" class="form-control" style="width:125px;" >
+
+
+                           <label for="defaultFormControlInput" class="form-label">Lesson Class</label>
+                            <input type="text" name="LessonClass"  value="@Model.LessonClass" maxlength="3" style="width:55px;" class="form-control">
+
+                         <div class="mt-2">
+                          <button formaction="SaveLesson" type="submit" class="btn btn-primary me-2" value="MyProfile">Save Lesson</button>
+
+                          <button formaction="DeleteLesson" type="submit" class="btn btn-danger me-2" value="MyProfile">Delete Lesson</button>
+                                   
+                          </div>
+                      </div> 
+                          </form>
+                  </div>
+
+
+                       <script>
+                                  document.addEventListener("DOMContentLoaded", function() {
+                                    var selectElement = document.getElementById("selectLessonOption");
+                                    selectElement.value = @Model.Class;
+
+                                        selectElement = document.getElementById("selectLessonDayOption");
+                                        selectElement.value = @Model.LessonDayIndex;
+                                  });
+                                </script>
+   }
+
+
+                        

@@ -9,9 +9,9 @@ public partial class TblLesson
 
     public string LessonName { get; set; } = null!;
 
-    public string TeacherId { get; set; } = null!;
+    public string? TeacherId { get; set; }
 
-    public string TeacherName { get; set; } = null!;
+    public string? TeacherName { get; set; }
 
     public byte Credit { get; set; }
 
@@ -21,11 +21,11 @@ public partial class TblLesson
 
     public byte Class { get; set; }
 
-    public string LessonDay { get; set; } = null!;
+    public string? LessonDay { get; set; }
 
-    public byte LessonDayIndex { get; set; }
+    public byte? LessonDayIndex { get; set; }
 
-    public string LessonTime { get; set; } = null!;
+    public string? LessonTime { get; set; }
 
-    public string LessonClass { get; set; } = null!;
+    public string? LessonClass { get; set; }
 }

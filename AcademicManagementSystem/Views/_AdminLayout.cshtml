@@ -28,7 +28,7 @@
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
 
-    <title>Home - Teacher</title>
+    <title>Home - Admin</title>
 
     <meta name="description" content="" />
 
@@ -149,56 +149,49 @@
 
             <!-- Layouts -->
             <li class="menu-item">
-              <a href="lessons" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-book"></i>
-                <div data-i18n="Lessons">Lessons</div>
+              <a href="TeacherAdd" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-plus"></i>
+                <div data-i18n="Lessons">Teacher Add</div>
               </a>
             </li>
 
-            <li class="menu-item">
-              <a href="entrynote" class="menu-link">
+             <li class="menu-item">
+              <a href="TeacherControl" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-edit"></i>
-                <div data-i18n="Entry Note">Entry Note</div>
+                <div data-i18n="Lessons">Teacher Control</div>
               </a>
             </li>
 
-            <!-- Student List -->
-            <!-- 
-            <li class="menu-item">
-              <a href="StudentList" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Student List">Student List</div>
-              </a></li>
-              -->
-            <li class="menu-item">
-              <a href="discontinuity" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-check-square"></i>
-                <div data-i18n="Discontinuity">Discontinuity</div>
-              </a>             
-            </li>
-
-            <!-- Announcements -->
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-comment-dots"></i>
-                <div data-i18n="Announcements">Announcements</div>
+             <li class="menu-item">
+              <a href="StudentAdd" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-plus"></i>
+                <div data-i18n="Lessons">Student Add</div>
               </a>
-
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="announcements" class="menu-link">
-                    <div data-i18n="All Announcements">All Announcements</div>
-                  </a>
-                </li>  
-
-               <li class="menu-item">
-                  <a href="makeannouncement" class="menu-link">
-                    <div data-i18n="Make Announcement">Make Announcement</div>
-                  </a>
-                </li>    
-
-              </ul>
             </li>
+
+            <li class="menu-item">
+              <a href="StudentControl" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-edit"></i>
+                <div data-i18n="Lessons">Student Control</div>
+              </a>
+            </li>
+
+            <li class="menu-item">
+              <a href="LessonAdd" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-list-plus"></i>
+                <div data-i18n="Lessons">Lesson Add</div>
+              </a>
+            </li>
+
+
+            <li class="menu-item">
+              <a href="LessonControl" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-edit"></i>
+                <div data-i18n="Lessons">Lesson Control</div>
+              </a>
+            </li>
+
+
 
         </aside>
         <!-- / Menu -->
@@ -256,7 +249,7 @@
                           </div>
                           <div class="flex-grow-1">
                             <span class="fw-semibold d-block">@ActiveUser.Name @ActiveUser.Surname</span>
-                            <small class="text-muted">Teacher</small>
+                            <small class="text-muted">Admin</small>
                           </div>
                         </div>
                       </a>
