@@ -51,23 +51,24 @@
                         </select>
 
                             <div class="divider">
-                            <div class="divider-text">Details
+                            <div class="divider-text">Lesson Details
                             </div>
                           </div>
 
                        <label for="exampleFormControlSelect1" class="form-label">Teacher</label>
-                            <select name="TeacherID" class="form-select" id="selectLessonOption" aria-label="Default select example">
-                                 <option value="">Select a teacher</option>
+                            <select name="TeacherID" class="form-select" id="teacherOption" aria-label="Default select example">
+                                 
+                                  <option value="">Select Teacher</option>
                              @foreach(var teacher in TeachersList.teachers)
                              {
-                                  <option value="@teacher.Username">@teacher.Name @teacher.Surname</option>
+                                  <option value=@teacher.Username>@teacher.Name @teacher.Surname</option>
                              }
 
                             </select>
                         
                                 <label for="exampleFormControlSelect1" class="form-label">Day</label>
-                                <select name="LessonDayIndex" class="form-select" id="selectLessonDayOption" aria-label="Default select example">
-                                     <option value="">Select a day</option>
+                                    <select name="LessonDayIndex" class="form-select" id="dayOption" aria-label="Default select example">
+                                    
                             @foreach (var day in days)
                             {
                                 <option value=@dayIndex>@day</option>
@@ -96,11 +97,11 @@
 
                        <script>
                                   document.addEventListener("DOMContentLoaded", function() {
-                                    var selectElement = document.getElementById("selectLessonOption");
-                                    selectElement.value = @Model.Class;
-
-                                        selectElement = document.getElementById("selectLessonDayOption");
-                                        selectElement.value = @Model.LessonDayIndex;
+                                        var selectElement = document.getElementById("teacherOption");
+                                    selectElement.value = "@Model.TeacherId";
+                                    
+                                        selectElement = document.getElementById("dayOption");
+                                        selectElement.value = "@Model.LessonDayIndex";
                                   });
                                 </script>
    }
