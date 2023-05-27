@@ -1,4 +1,5 @@
 ﻿using AcademicManagementSystem.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicManagementSystem.Controllers
@@ -27,6 +28,18 @@ namespace AcademicManagementSystem.Controllers
         }
         public IActionResult StudentAdd()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult StudentAdd(TblUser user, TblStudent student)
+        {
+            user.Authority = "Student";
+            user.Password = user.Username;
+            dbAcademicMsContext.TblUsers.Add(user);
+            student.StudentId = user.Username;
+            dbAcademicMsContext.TblStudents.Add(student);
+            dbAcademicMsContext.SaveChanges();
             return View();
         }
 

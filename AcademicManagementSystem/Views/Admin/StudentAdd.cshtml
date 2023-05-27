@@ -4,5 +4,75 @@
     Layout = "~/Views/_AdminLayout.cshtml";
 }
 
-<h1>StudentAdd</h1>
+<div class="card mb-4">
+                    <h5 class="card-header">Student Details</h5>
+                    <!-- Account -->
+
+                    <hr class="my-0">
+                    <div class="card-body">
+                      <form id="formAccountSettings" method="POST">
+                        <div class="row">
+                          <div class="mb-3 col-md-6">
+                            <label for="firstName" class="form-label">First Name</label>
+                            <input class="form-control" type="text" id="Name" name="Name">
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="lastName" class="form-label">Last Name</label>
+                            <input class="form-control" type="text" name="Surname" id="Surname">
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="email" class="form-label">E-mail</label>
+                            <input class="form-control" type="text" id="Email" name="Email">
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="Username" name="Username">
+                          </div>
+                          <div class="mb-3 col-md-6">
+                            <label class="form-label" for="phoneNumber">Phone Number</label>
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text">TR (+90)</span>
+                              <input type="text" maxlength="10" id="Phone" name="Phone" class="form-control">
+                            </div>
+                          </div>
+                            
+                          <div class="divider">
+                            <div class="divider-text">Student Details
+                            </div>
+                          </div>
+
+
+
+                         <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Faculty</label>
+                            <input type="text" class="form-control" name="Faculty">
+                          </div>
+
+                          <div class="mb-3 col-md-6">
+                            <label for="organization" class="form-label">Course</label>
+                            <input type="text" class="form-control" name="Course">
+                          </div>
+
+                         <div class="mb-3 col-md-6">
+                          <label for="exampleFormControlSelect1" class="form-label">Class</label>
+                        <select name="class" class="form-select" id="selectLessonOption" aria-label="Default select example">
+                          <option value="11">1.Class 1.Section</option>
+                          <option value="12">1.Class 2.Section</option>
+                          <option value="21">2.Class 1.Section</option>
+                          <option value="22">2.Class 2.Section</option>
+                          <option value="31">3.Class 1.Section</option>
+                          <option value="32">3.Class 2.Section</option>
+                          <option value="41">4.Class 1.Section</option>
+                          <option value="42">4.Class 2.Section</option>
+                        </select>
+
+                          </div>
+
+                        <div class="mt-2">
+                          <button type="submit" class="btn btn-primary me-2" value="MyProfile">Add Student</button>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /Account -->
+                  </div>
 
