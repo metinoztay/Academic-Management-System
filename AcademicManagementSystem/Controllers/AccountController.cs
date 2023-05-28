@@ -43,7 +43,7 @@ namespace AcademicManagementSystem.Controllers
                 {
                     return RedirectToAction("Index", "Student", userInformations);
                 }
-                else
+                else if (userInformations.Authority == "Admin")
                 {
                     return RedirectToAction("Index", "Admin", userInformations);
                 }
