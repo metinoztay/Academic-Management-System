@@ -115,15 +115,8 @@ public partial class DbAcademicMsContext : DbContext
                 .HasMaxLength(11)
                 .IsFixedLength()
                 .HasColumnName("TeacherID");
-            entity.Property(e => e.Email)
-                .HasMaxLength(50)
-                .HasColumnName("email");
-            entity.Property(e => e.Name).HasMaxLength(50);
-            entity.Property(e => e.Password).HasMaxLength(50);
-            entity.Property(e => e.Phone)
-                .HasMaxLength(11)
-                .IsFixedLength();
-            entity.Property(e => e.Surname).HasMaxLength(50);
+            entity.Property(e => e.Course).HasMaxLength(50);
+            entity.Property(e => e.Faculty).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TblUser>(entity =>
@@ -133,9 +126,7 @@ public partial class DbAcademicMsContext : DbContext
             entity.ToTable("tblUsers");
 
             entity.Property(e => e.Username).HasMaxLength(50);
-            entity.Property(e => e.Authority)
-                .HasMaxLength(7)
-                .IsFixedLength();
+            entity.Property(e => e.Authority).HasMaxLength(7);
             entity.Property(e => e.District).HasMaxLength(50);
             entity.Property(e => e.Email)
                 .HasMaxLength(50)

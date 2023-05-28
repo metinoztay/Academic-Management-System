@@ -19,11 +19,11 @@ public partial class TblUser
 
     public string Authority { get; set; } = null!;
 
-    public string Adress { get; set; } = null!;
+    public string? Adress { get; set; }
 
-    public string District { get; set; } = null!;
+    public string? District { get; set; }
 
-    public string Province { get; set; } = null!;
+    public string? Province { get; set; }
 
-    public string SecurityKey { get; set; } = null!;
+    public string? SecurityKey { get; set; }
 }

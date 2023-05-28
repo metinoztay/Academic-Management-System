@@ -22,10 +22,30 @@ namespace AcademicManagementSystem.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult TeacherAdd(TblUser user, TblTeacher teacher)
+        {
+            user.Authority = "Teacher";
+            user.Password = user.Username;
+            dbAcademicMsContext.TblUsers.Add(user);
+            teacher.TeacherId = user.Username;
+            dbAcademicMsContext.TblTeachers.Add(teacher);
+            dbAcademicMsContext.SaveChanges();
+            return View();
+        }
         public IActionResult TeacherControl()
         {
             return View();
         }
+
+        [HttpPost]
+        public IActionResult TeacherControl(string teacherID)
+        {
+            var teacher = dbAcademicMsContext.TblUsers
+                .FirstOrDefault(t => t.Username == teacherID);
+            return View(teacher);
+        }
+
         public IActionResult StudentAdd()
         {
             return View();
