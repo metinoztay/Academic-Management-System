@@ -133,17 +133,6 @@ namespace AcademicManagementSystem.Controllers
             //not kaydedildiğinde seçili olan dersin tekrar seçilmesi gerek?
         }
 
-        public IActionResult StudentList()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public IActionResult StudentList(string value1, string value2, string value3)
-        {
-            return View();
-        }
-
         public IActionResult Discontinuity()
         {
             var lessons = dbAcademicMsContext.TblLessons
@@ -153,6 +142,7 @@ namespace AcademicManagementSystem.Controllers
             {
                 TeacherLessons.lessonNames.Add(lesson.LessonName);
             }
+
             return View();
         }
 
@@ -169,10 +159,32 @@ namespace AcademicManagementSystem.Controllers
         }
 
         [HttpPost]
-        public IActionResult DiscontinuitySave(TblDiscontinuity discontinuity)
+        public IActionResult DiscontinuitySave(TempDiscontinuity temp)
         {
+            TblDiscontinuity discontinuity = new TblDiscontinuity();
+            discontinuity.Id = temp.Id;
+            discontinuity.StudentName = temp.StudentName;
+            discontinuity.StudentId = temp.StudentId;
+            discontinuity.LessonCode= temp.LessonCode;
+            discontinuity.LessonName= temp.LessonName;
+            discontinuity.Week1 = (temp.Week1 == "on") ? true : false;
+            discontinuity.Week2 = (temp.Week2 == "on") ? true : false;
+            discontinuity.Week3 = (temp.Week3 == "on") ? true : false;
+            discontinuity.Week4 = (temp.Week4 == "on") ? true : false;
+            discontinuity.Week5 = (temp.Week5 == "on") ? true : false;
+            discontinuity.Week6 = (temp.Week6 == "on") ? true : false;
+            discontinuity.Week7 = (temp.Week7 == "on") ? true : false;
+            discontinuity.Week8 = (temp.Week8 == "on") ? true : false;
+            discontinuity.Week9 = (temp.Week9 == "on") ? true : false;
+            discontinuity.Week10 = (temp.Week10 == "on") ? true : false;
+            discontinuity.Week11 = (temp.Week11 == "on") ? true : false;
+            discontinuity.Week12 = (temp.Week12 == "on") ? true : false;
+            discontinuity.Week13 = (temp.Week13 == "on") ? true : false;
+            discontinuity.Week14 = (temp.Week14 == "on") ? true : false;
+            dbAcademicMsContext.TblDiscontinuities.Update(discontinuity);
+            dbAcademicMsContext.SaveChanges();
 
-            return View();
+            return RedirectToAction("Discontinuity");
         }
 
         public IActionResult Announcements()
