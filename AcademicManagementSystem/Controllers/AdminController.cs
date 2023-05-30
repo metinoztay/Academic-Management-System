@@ -1,9 +1,11 @@
 ﻿using AcademicManagementSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AcademicManagementSystem.Controllers
 {
+    [Authorize]
     public class AdminController : Controller
     {
         DbAcademicMsContext dbAcademicMsContext = new DbAcademicMsContext();
@@ -121,6 +123,12 @@ namespace AcademicManagementSystem.Controllers
             dbAcademicMsContext.TblLessons.Remove(lesson);
             dbAcademicMsContext.SaveChanges();
             return RedirectToAction("LessonControl");
+        }
+
+        public IActionResult Logout()
+        {
+            ActiveUser.isSettedInformations = false;
+            return RedirectToAction("Logout", "Account");
         }
 
         private void GetActiveUserInformations()
