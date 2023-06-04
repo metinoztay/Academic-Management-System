@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using NuGet.DependencyResolver;
 
 namespace AcademicManagementSystem.Controllers
 {
@@ -133,6 +135,82 @@ namespace AcademicManagementSystem.Controllers
         public IActionResult StudentControl()
         {
             return View();
+        }
+
+        [HttpPost]
+        public IActionResult StudentControl(string username)
+        {
+            var student = dbAcademicMsContext.TblUsers
+                .FirstOrDefault(s => s.Username == username);
+            var studentModel = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == username);
+
+            TempStudentModel tempStudentModel = new TempStudentModel();
+            tempStudentModel.Name = student.Name;
+            tempStudentModel.Surname = student.Surname;
+            tempStudentModel.Adress = student.Adress;
+            tempStudentModel.Email = student.Email;
+            tempStudentModel.Username = student.Username;
+            tempStudentModel.Phone = student.Phone;
+            tempStudentModel.District = student.District;
+            tempStudentModel.Password = student.Password;
+            tempStudentModel.Province = student.Province;
+            tempStudentModel.SecurityKey = student.SecurityKey;
+
+            tempStudentModel.Faculty = studentModel.Faculty;
+            tempStudentModel.Course = studentModel.Course;
+            tempStudentModel.Class = studentModel.Class;
+
+            return View(tempStudentModel);
+        }
+
+        [HttpPost]
+        public IActionResult SaveStudent(TempStudentModel tempStudentModel)
+        {
+            TblUser student = new TblUser();
+            student.Authority = "Student";
+            student.Username = tempStudentModel.Username;
+            student.Name = tempStudentModel.Name;
+            student.Surname = tempStudentModel.Surname;
+            student.Adress = tempStudentModel.Adress;
+            student.District = tempStudentModel.District;
+            student.Province = tempStudentModel.Province;
+            student.Phone = tempStudentModel.Phone;
+            student.Email = tempStudentModel.Email;
+            student.Password = tempStudentModel.Password;
+            student.SecurityKey = tempStudentModel.SecurityKey;
+            dbAcademicMsContext.TblUsers.Update(student);
+            TblStudent studentModel = new TblStudent();
+            studentModel.Faculty = tempStudentModel.Faculty;
+            studentModel.Course = tempStudentModel.Course;
+            studentModel.Class = (byte)tempStudentModel.Class;
+            studentModel.StudentId = tempStudentModel.Username;
+            dbAcademicMsContext.TblStudents.Update(studentModel);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("StudentControl");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteStudent(string username)
+        {
+            var student = dbAcademicMsContext.TblUsers
+                .FirstOrDefault(s => s.Username == username);
+            dbAcademicMsContext.TblUsers.Remove(student);
+
+            var studentModel = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == username);
+            dbAcademicMsContext.TblStudents.Remove(studentModel);
+
+            var studentLessons = dbAcademicMsContext.TblStudentsLessons
+                .Where(s => s.StudentId == username);
+            foreach (var lesson in studentLessons)
+            {
+                dbAcademicMsContext.TblStudentsLessons.Remove(lesson);
+            }
+
+            dbAcademicMsContext.SaveChanges();
+
+            return RedirectToAction("StudentControl");
         }
 
         public IActionResult LessonAdd()
