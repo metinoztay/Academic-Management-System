@@ -45,7 +45,72 @@ namespace AcademicManagementSystem.Controllers
         {
             var teacher = dbAcademicMsContext.TblUsers
                 .FirstOrDefault(t => t.Username == teacherID);
-            return View(teacher);
+            
+            var teacherModel = dbAcademicMsContext.TblTeachers
+                .FirstOrDefault( t => t.TeacherId == teacherID);
+
+            TempTeacherModel tempTeacherModel = new TempTeacherModel();
+            tempTeacherModel.Name = teacher.Name;
+            tempTeacherModel.Surname = teacher.Surname;
+            tempTeacherModel.Adress = teacher.Adress;
+            tempTeacherModel.Email = teacher.Email;
+            tempTeacherModel.Username = teacher.Username;
+            tempTeacherModel.Phone = teacher.Phone;
+            tempTeacherModel.District= teacher.District;
+            tempTeacherModel.Password = teacher.Password;
+            tempTeacherModel.Province = teacher.Province;
+            tempTeacherModel.SecurityKey = teacher.SecurityKey;
+
+            tempTeacherModel.Faculty = teacherModel.Faculty;
+            tempTeacherModel.Course = teacherModel.Course;
+
+
+            return View(tempTeacherModel);
+        }
+
+        [HttpPost]
+        public IActionResult TeacherSave(TempTeacherModel tempTeacherModel)
+        {
+            TblUser teacher = new TblUser();
+            teacher.Authority = "Teacher";
+            teacher.Username = tempTeacherModel.Username;
+            teacher.Name = tempTeacherModel.Name;
+            teacher.Surname = tempTeacherModel.Surname;
+            teacher.Adress = tempTeacherModel.Adress;
+            teacher.District = tempTeacherModel.District;
+            teacher.Province = tempTeacherModel.Province;
+            teacher.Phone = tempTeacherModel.Phone;
+            teacher.Email= tempTeacherModel.Email;
+            teacher.Password = tempTeacherModel.Password;
+            teacher.SecurityKey = tempTeacherModel.SecurityKey;
+            dbAcademicMsContext.TblUsers.Update(teacher);
+            TblTeacher teacherModel = new TblTeacher();
+            teacherModel.Faculty = tempTeacherModel.Faculty;
+            teacherModel.Course = tempTeacherModel.Course;
+            teacherModel.TeacherId = tempTeacherModel.Username;
+            dbAcademicMsContext.TblTeachers.Update(teacherModel);
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("TeacherControl");
+        }
+
+        [HttpPost]
+        public IActionResult DeleteTeacher(string username)
+        {
+            var user = dbAcademicMsContext.TblUsers
+                .FirstOrDefault(u => u.Username == username);
+            dbAcademicMsContext.TblUsers.Remove(user);
+            var teacher = dbAcademicMsContext.TblTeachers
+                .FirstOrDefault(t => t.TeacherId== username);
+            dbAcademicMsContext.TblTeachers.Remove(teacher);
+            var lessons = dbAcademicMsContext.TblLessons
+                .Where(l => l.TeacherId == username);
+            foreach(var lesson in lessons)
+            {
+                lesson.TeacherId = null;
+                lesson.TeacherName = null;
+            }
+            dbAcademicMsContext.SaveChanges();
+            return RedirectToAction("TeacherControl");
         }
 
         public IActionResult StudentAdd()
