@@ -41,7 +41,7 @@
                         <input type="text" name="Course"  value="@Model.Course" class="form-control" id="defaultFormControlInput" aria-describedby="defaultFormControlHelp">
 
                         <label for="exampleFormControlSelect1" class="form-label">Class</label>
-                        <select name="class" value="@Model.Class" class="form-select" id="selectLessonOption" aria-label="Default select example">
+                        <select name="class" value="@Model.Class" class="form-select" id="classOption" aria-label="Default select example">
                           <option value="11">1.Class 1.Section</option>
                           <option value="12">1.Class 2.Section</option>
                           <option value="21">2.Class 1.Section</option>
@@ -104,6 +104,9 @@
                                     
                                         selectElement = document.getElementById("dayOption");
                                         selectElement.value = "@Model.LessonDayIndex";
+
+                                            selectElement = document.getElementById("classOption");
+                                            selectElement.value = "@Model.Class";
                                   });
                                 </script>
    }

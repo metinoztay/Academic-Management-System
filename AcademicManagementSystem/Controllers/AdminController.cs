@@ -248,7 +248,7 @@ namespace AcademicManagementSystem.Controllers
         public IActionResult SaveLesson(TblLesson lesson)
         {
             string[] days = { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" };
-            lesson.LessonDay = days[(int)lesson.LessonDayIndex];
+            lesson.LessonDay = days[(int)lesson.LessonDayIndex-1];
             lesson.TeacherName = dbAcademicMsContext.TblUsers
                 .FirstOrDefault(t => t.Username == lesson.TeacherId).Name + " " +
                 dbAcademicMsContext.TblUsers
