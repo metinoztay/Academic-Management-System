@@ -4,8 +4,9 @@
     Layout = "~/Views/_StudentLayout.cshtml";
 }
 
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Student /</span> View Notes</h4>
 <div class="card">
-                <h5 class="card-header">Striped rows</h5>
+                <h5 class="card-header">Notes</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table table-striped">
                     <thead>
@@ -25,10 +26,10 @@
                     <tr>
                              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@l.LessonName</strong></td>
                              <td>@l.TeacherName</td>
-                             <td>@l.MidtermNote</td>
-                             <td>@l.FinalNote</td>
-                             <td>@l.Average</td>
-                             <td>@l.CompleteNote</td>
+                                 <td><span class="badge bg-secondary"> @l.MidtermNote </span></td>
+                                     <td><span class="badge bg-secondary"> @l.FinalNote </span></td>
+                                     <td><span class="badge bg-secondary"> @l.Average </span></td>
+                                     <td><span class="badge bg-secondary"> @l.CompleteNote </span></td>
                              <td>
                             @if (l.LetterGrade == "AA" || l.LetterGrade == "BA"
                           || l.LetterGrade == "BB" || l.LetterGrade == "CB" || l.LetterGrade == "CC")

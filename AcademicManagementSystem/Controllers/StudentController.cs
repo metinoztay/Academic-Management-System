@@ -21,8 +21,10 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Timetable()
         {
+            var studentClass = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
             var studentInformations = dbAcademicMsContext.TblStudentsLessons
-                    .Where(i => i.StudentId == ActiveUser.Username).ToList();
+                    .Where(i => i.StudentId == ActiveUser.Username && i.Class == studentClass).ToList();
             List<TblLesson> lessonList = new List<TblLesson>();
             foreach (var l in studentInformations)
             {
@@ -35,8 +37,11 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult ViewNotes()
         {
+            var studentClass = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId== ActiveUser.Username).Class;
+
             var lessons = dbAcademicMsContext.TblStudentsLessons
-                .Where(l => l.StudentId == ActiveUser.Username).ToList();
+                .Where(l => l.StudentId == ActiveUser.Username && l.Class == studentClass).ToList();
 
             List<LessonNoteModel> lessonsList = new List<LessonNoteModel>();
             foreach (var l in lessons)
@@ -44,6 +49,7 @@ namespace AcademicManagementSystem.Controllers
                 LessonNoteModel less = new LessonNoteModel();
                 less.StudentId = ActiveUser.Username;
                 less.LessonCode = l.LessonCode;
+                less.Class = l.Class;
                 less.MidtermNote = l.MidtermNote;
                 less.FinalNote = l.FinalNote;
                 less.CompleteNote = l.CompleteNote;
@@ -59,10 +65,50 @@ namespace AcademicManagementSystem.Controllers
             return View(lessonsList);
         }
 
+        public IActionResult Transcript()
+        {
+            var studentClass = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
+
+            var lessons = dbAcademicMsContext.TblStudentsLessons
+                .Where(l => l.StudentId == ActiveUser.Username && l.Class != studentClass).ToList();
+
+            List<LessonNoteModel> lessonsList = new List<LessonNoteModel>();
+            foreach (var l in lessons)
+            {
+                LessonNoteModel less = new LessonNoteModel();
+                less.StudentId = ActiveUser.Username;
+                less.LessonCode = l.LessonCode;
+                less.Credit = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(t => t.Code == l.LessonCode).Credit;
+                less.Class = l.Class;
+                less.MidtermNote = l.MidtermNote;
+                less.FinalNote = l.FinalNote;
+                less.CompleteNote = l.CompleteNote;
+                less.Average = l.Average;
+                less.LetterGrade = l.LetterGrade;
+                less.TeacherName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(t => t.Code == l.LessonCode).TeacherName;
+                less.LessonName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(t => t.Code == l.LessonCode).LessonName;
+
+                lessonsList.Add(less);
+            }
+            return View(lessonsList);
+        }
+
         public IActionResult CourseSelection()
         {
+            bool isCourseSelectionOpen = dbAcademicMsContext.IsCourseSelectionOpens
+                .FirstOrDefault(i => i.Id == 1).CourseSelection;
+            if (!isCourseSelectionOpen)
+                return RedirectToAction("Index");
+
+            var clas = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
             var studentsLessons = dbAcademicMsContext.TblStudentsLessons
-                .Where(l => l.StudentId == ActiveUser.Username).ToList();
+                .Where(l => l.StudentId == ActiveUser.Username 
+                && l.Class == clas).ToList();
             StudentLessons.studentLessons.Clear();
             foreach (var studentLesson in studentsLessons)
             {
@@ -104,6 +150,8 @@ namespace AcademicManagementSystem.Controllers
             var addLesson = new TblStudentsLesson();
             addLesson.StudentId = ActiveUser.Username;
             addLesson.LessonCode = lessonCode;
+            addLesson.Class = dbAcademicMsContext.TblLessons
+                .FirstOrDefault(l => l.Code == lessonCode).Class;
             dbAcademicMsContext.TblStudentsLessons.Add(addLesson);
             dbAcademicMsContext.SaveChanges();
 
@@ -111,6 +159,7 @@ namespace AcademicManagementSystem.Controllers
             discLesson.StudentId = ActiveUser.Username;
             discLesson.StudentName = ActiveUser.Name + " " + ActiveUser.Surname;
             discLesson.LessonCode = lessonCode;
+            discLesson.Class = addLesson.Class;
             discLesson.LessonName = dbAcademicMsContext.TblLessons.Find(lessonCode).LessonName;
             dbAcademicMsContext.TblDiscontinuities.Add(discLesson);
             dbAcademicMsContext.SaveChanges();
@@ -137,9 +186,11 @@ namespace AcademicManagementSystem.Controllers
 
         public IActionResult Discontinuity()
         {
+            var clas = dbAcademicMsContext.TblStudents
+                .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
             var discontinuities = dbAcademicMsContext.TblDiscontinuities
-                .Where(s => s.StudentId == ActiveUser.Username)
-                .OrderBy(l => l.LessonName);
+                .Where(s => s.StudentId == ActiveUser.Username
+                && s.Class == clas).OrderBy(l => l.LessonName);
             return View(discontinuities);
         }
 

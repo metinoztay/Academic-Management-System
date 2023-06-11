@@ -68,6 +68,7 @@ namespace AcademicManagementSystem.Controllers
                 less.Average = student.Average;
                 less.LetterGrade = student.LetterGrade;
                 less.LessonCode = lesson.Code;
+                less.Class = student.Class;
                 less.Id = student.Id;
                 studentModelList.Add(less);
             }
@@ -84,6 +85,7 @@ namespace AcademicManagementSystem.Controllers
             studentNote.FinalNote = lessonNote.FinalNote;
             studentNote.CompleteNote = lessonNote.CompleteNote;
             studentNote.LessonCode = lessonNote.LessonCode;
+            studentNote.Class = (byte)lessonNote.Class;
             studentNote.Id = lessonNote.Id;
 
             float average;
@@ -103,7 +105,9 @@ namespace AcademicManagementSystem.Controllers
             
 
             string letterNote;
-            if (average >= 88)
+            if ( studentNote.FinalNote < 45 && lessonNote.CompleteNote == null)
+                letterNote = "DC";
+            else if (average >= 88)
                 letterNote = "AA";
             else if (average >= 81)
                 letterNote = "BA";
@@ -166,6 +170,7 @@ namespace AcademicManagementSystem.Controllers
             discontinuity.StudentName = temp.StudentName;
             discontinuity.StudentId = temp.StudentId;
             discontinuity.LessonCode= temp.LessonCode;
+            discontinuity.Class = (byte)temp.Class;
             discontinuity.LessonName= temp.LessonName;
             discontinuity.Week1 = (temp.Week1 == "on") ? true : false;
             discontinuity.Week2 = (temp.Week2 == "on") ? true : false;

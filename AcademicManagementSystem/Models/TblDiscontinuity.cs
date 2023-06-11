@@ -11,6 +11,8 @@ public partial class TblDiscontinuity
 
     public string LessonName { get; set; } = null!;
 
+    public byte Class { get; set; }
+
     public string StudentId { get; set; } = null!;
 
     public string StudentName { get; set; } = null!;

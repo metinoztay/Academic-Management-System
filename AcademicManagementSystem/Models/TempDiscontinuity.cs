@@ -8,7 +8,7 @@ public class TempDiscontinuity
     public int Id { get; set; }
 
     public string LessonCode { get; set; } = null!;
-
+    public int? Class { get; set; }
     public string LessonName { get; set; } = null!;
 
     public string StudentId { get; set; } = null!;

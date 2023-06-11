@@ -15,6 +15,8 @@ public partial class DbAcademicMsContext : DbContext
     {
     }
 
+    public virtual DbSet<IsCourseSelectionOpen> IsCourseSelectionOpens { get; set; }
+
     public virtual DbSet<TblAnnouncement> TblAnnouncements { get; set; }
 
     public virtual DbSet<TblDiscontinuity> TblDiscontinuities { get; set; }
@@ -35,6 +37,15 @@ public partial class DbAcademicMsContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<IsCourseSelectionOpen>(entity =>
+        {
+            entity
+                .HasNoKey()
+                .ToTable("isCourseSelectionOpen");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+        });
+
         modelBuilder.Entity<TblAnnouncement>(entity =>
         {
             entity.ToTable("tblAnnouncements");
@@ -112,8 +123,7 @@ public partial class DbAcademicMsContext : DbContext
             entity.ToTable("tblTeachers");
 
             entity.Property(e => e.TeacherId)
-                .HasMaxLength(11)
-                .IsFixedLength()
+                .HasMaxLength(50)
                 .HasColumnName("TeacherID");
             entity.Property(e => e.Course).HasMaxLength(50);
             entity.Property(e => e.Faculty).HasMaxLength(50);

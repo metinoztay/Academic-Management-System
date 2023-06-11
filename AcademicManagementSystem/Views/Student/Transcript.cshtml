@@ -1,0 +1,70 @@
+﻿@model IEnumerable<AcademicManagementSystem.Models.LessonNoteModel>
+@{
+    ViewData["Title"] = "Transcript";
+    Layout = "~/Views/_StudentLayout.cshtml";
+    int[] classes = { 11, 12, 21, 22, 31, 32, 41, 42 };
+    string[] classNames = {"1.Class 1.Section","1.Class 2.Section"
+    ,"2.Class 1.Section","2.Class 2.Section","3.Class 1.Section"
+    ,"3.Class 2.Section","4.Class 1.Section","4.Class 2.Section"};
+    int index = 0;
+}
+
+<h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light"> Student /</span> Transcript</h4>
+
+
+@foreach (var clas in classes)
+{
+    @foreach (var le in Model)
+    {
+        @if (le.Class == clas)
+        {
+                        <div class="card">
+                                <h5 class="card-header">@classNames[index]</h5>
+                                <div class="table-responsive text-nowrap">
+                                  <table class="table table-striped">
+                                    <thead>
+                                      <tr>
+                                        <th>Lesson Code</th>
+                                        <th>Lesson</th>
+                                            <th>Credit</th>
+                                        <th>Average</th>
+
+                                        <th>Letter Grade</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                            @foreach (var l in Model)
+                            {
+                                @if (l.Class != clas)
+                                {
+                                    continue;
+                                }
+
+                                        <tr>
+                                                         <td>@l.LessonCode</td>
+                                                         <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@l.LessonName</strong></td>
+                                                         <td>@l.Credit</td>
+                                                         <td>@l.Average</td>                                         
+                                                         <td>@l.LetterGrade</td>
+                                                </tr>
+                            }
+
+
+
+                                    </tbody>
+                                  </table>
+                                </div>
+                              </div>
+            <br />
+            break;
+        }
+    }
+
+        
+    index++;
+}
+
+
+
+
+

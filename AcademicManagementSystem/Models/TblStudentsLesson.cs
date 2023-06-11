@@ -11,6 +11,8 @@ public partial class TblStudentsLesson
 
     public string LessonCode { get; set; } = null!;
 
+    public byte Class { get; set; }
+
     public int? MidtermNote { get; set; }
 
     public int? FinalNote { get; set; }
