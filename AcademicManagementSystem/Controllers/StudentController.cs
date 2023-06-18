@@ -24,7 +24,7 @@ namespace AcademicManagementSystem.Controllers
             var studentClass = dbAcademicMsContext.TblStudents
                 .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
             var studentInformations = dbAcademicMsContext.TblStudentsLessons
-                    .Where(i => i.StudentId == ActiveUser.Username && i.Class == studentClass).ToList();
+                    .Where(i => i.StudentId == ActiveUser.Username && i.Class == studentClass && i.Confirmed == true).ToList();
             List<TblLesson> lessonList = new List<TblLesson>();
             foreach (var l in studentInformations)
             {
@@ -41,7 +41,8 @@ namespace AcademicManagementSystem.Controllers
                 .FirstOrDefault(s => s.StudentId== ActiveUser.Username).Class;
 
             var lessons = dbAcademicMsContext.TblStudentsLessons
-                .Where(l => l.StudentId == ActiveUser.Username && l.Class == studentClass).ToList();
+                .Where(l => l.StudentId == ActiveUser.Username 
+                && l.Class == studentClass && l.Confirmed == true).ToList();
 
             List<LessonNoteModel> lessonsList = new List<LessonNoteModel>();
             foreach (var l in lessons)
@@ -184,13 +185,27 @@ namespace AcademicManagementSystem.Controllers
             return RedirectToAction("CourseSelection");
         }
 
+        [HttpPost]
+        public IActionResult SendToConfirm()
+        {
+            var studentModel = dbAcademicMsContext.TblStudentListForConfirms.FirstOrDefault(s => s.StudentId == ActiveUser.Username);
+            if(studentModel == null)
+            {
+                TblStudentListForConfirm student = new TblStudentListForConfirm();
+                student.StudentId = ActiveUser.Username;
+                dbAcademicMsContext.TblStudentListForConfirms.Add(student);
+                dbAcademicMsContext.SaveChanges();
+            }            
+            return RedirectToAction("index");
+        }
+
         public IActionResult Discontinuity()
         {
             var clas = dbAcademicMsContext.TblStudents
                 .FirstOrDefault(s => s.StudentId == ActiveUser.Username).Class;
             var discontinuities = dbAcademicMsContext.TblDiscontinuities
                 .Where(s => s.StudentId == ActiveUser.Username
-                && s.Class == clas).OrderBy(l => l.LessonName);
+                && s.Class == clas && s.Confirmed == true).OrderBy(l => l.LessonName);
             return View(discontinuities);
         }
 

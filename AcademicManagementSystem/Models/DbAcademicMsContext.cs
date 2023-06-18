@@ -25,6 +25,8 @@ public partial class DbAcademicMsContext : DbContext
 
     public virtual DbSet<TblStudent> TblStudents { get; set; }
 
+    public virtual DbSet<TblStudentListForConfirm> TblStudentListForConfirms { get; set; }
+
     public virtual DbSet<TblStudentsLesson> TblStudentsLessons { get; set; }
 
     public virtual DbSet<TblTeacher> TblTeachers { get; set; }
@@ -39,11 +41,11 @@ public partial class DbAcademicMsContext : DbContext
     {
         modelBuilder.Entity<IsCourseSelectionOpen>(entity =>
         {
-            entity
-                .HasNoKey()
-                .ToTable("isCourseSelectionOpen");
+            entity.ToTable("isCourseSelectionOpen");
 
-            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Id)
+                .ValueGeneratedNever()
+                .HasColumnName("ID");
         });
 
         modelBuilder.Entity<TblAnnouncement>(entity =>
@@ -100,6 +102,14 @@ public partial class DbAcademicMsContext : DbContext
                 .HasColumnName("StudentID");
             entity.Property(e => e.Course).HasMaxLength(50);
             entity.Property(e => e.Faculty).HasMaxLength(50);
+        });
+
+        modelBuilder.Entity<TblStudentListForConfirm>(entity =>
+        {
+            entity.ToTable("tblStudentListForConfirm");
+
+            entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.StudentId).HasMaxLength(50);
         });
 
         modelBuilder.Entity<TblStudentsLesson>(entity =>

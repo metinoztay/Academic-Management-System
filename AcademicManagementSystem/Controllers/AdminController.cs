@@ -244,6 +244,104 @@ namespace AcademicManagementSystem.Controllers
             return View(lesson);
         }
 
+        public IActionResult LessonSelectionControl()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult LessonSelectionControl(int courseSelection)
+        {
+            IsCourseSelectionOpen selection = new IsCourseSelectionOpen();
+            selection.CourseSelection = (courseSelection == 1) ? true : false;
+            selection.Id = 1;
+            dbAcademicMsContext.IsCourseSelectionOpens.Update(selection);
+            dbAcademicMsContext.SaveChanges();
+            return View();
+        }
+
+        public IActionResult LessonSelectionConfirm()
+        {
+            var list = dbAcademicMsContext.TblStudentListForConfirms.ToList();
+            List<TempStudentModel> students = new List<TempStudentModel>();
+            
+            foreach (var s in list)
+            {
+                TempStudentModel student = new TempStudentModel();
+                student.Username = s.StudentId;
+                student.Name = dbAcademicMsContext.TblUsers
+                    .FirstOrDefault(a => a.Username == s.StudentId).Name;
+                student.Surname = dbAcademicMsContext.TblUsers
+                    .FirstOrDefault(a => a.Username == s.StudentId).Surname;
+                student.Course = dbAcademicMsContext.TblStudents
+                    .FirstOrDefault(a => a.StudentId == s.StudentId).Course;
+                student.Class = dbAcademicMsContext.TblStudents
+                    .FirstOrDefault(a => a.StudentId == s.StudentId).Class;
+                students.Add(student);
+            }
+
+            return View(students);
+        }
+
+
+        [HttpPost]
+        public IActionResult SelectStudent(string studentID)
+        {   var studentLessons = dbAcademicMsContext.TblStudentsLessons
+                .Where(s => s.StudentId == studentID && s.Confirmed == false).ToList();
+            TempStudentID.tempStudentID = studentID;
+            List<TblLesson> lessons = new List<TblLesson>();
+            
+            foreach (var item in studentLessons)
+            {
+                TblLesson lesson = new TblLesson();
+                lesson.Code = item.LessonCode;
+                lesson.LessonName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(l => l.Code == item.LessonCode).LessonName;
+                lesson.TeacherName = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(l => l.Code == item.LessonCode).TeacherName;
+                lesson.Credit = dbAcademicMsContext.TblLessons
+                    .FirstOrDefault(l => l.Code == item.LessonCode).Credit;
+                lessons.Add(lesson);
+            }
+
+            return View(lessons);
+        }
+
+        [HttpPost]
+        public IActionResult SaveLessonSelection(List<string> lessonCode, List<string> selection)
+        {
+            int index = 0;
+            foreach (var item in lessonCode)
+            {
+                var lesson = dbAcademicMsContext.TblStudentsLessons
+                    .FirstOrDefault(l => l.LessonCode == item);
+                var disc = dbAcademicMsContext.TblDiscontinuities
+                    .FirstOrDefault(l => l.LessonCode == item);                
+                lesson.Confirmed = (selection[index] == "true") ? true : false;
+                disc.Confirmed = (selection[index] == "true") ? true : false;
+                if (lesson.Confirmed)
+                {
+                    dbAcademicMsContext.TblDiscontinuities.Update(disc);
+                    dbAcademicMsContext.TblStudentsLessons.Update(lesson);
+                    dbAcademicMsContext.SaveChanges();
+                }
+                else
+                {
+                    dbAcademicMsContext.TblDiscontinuities.Remove(disc);
+                    dbAcademicMsContext.TblStudentsLessons.Remove(lesson);
+                    dbAcademicMsContext.SaveChanges();
+                }                
+                index++;
+            }
+
+            var student = dbAcademicMsContext.TblStudentListForConfirms
+                .FirstOrDefault(s => s.StudentId == TempStudentID.tempStudentID);
+            dbAcademicMsContext.TblStudentListForConfirms.Remove(student);
+            dbAcademicMsContext.SaveChanges();
+
+            return RedirectToAction("LessonSelectionConfirm");
+        }
+
         [HttpPost]
         public IActionResult SaveLesson(TblLesson lesson)
         {

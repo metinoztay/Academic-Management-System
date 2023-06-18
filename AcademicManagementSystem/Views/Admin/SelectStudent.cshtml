@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AcademicManagementSystem.Models.TblLesson>
+@{
+    ViewData["Title"] = "SelectStudent";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Selected Lessons List</h5>
+    <div class="table-responsive text-nowrap">
+        <form action="SaveLessonSelection" method="post">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Lesson Name</th>
+                    <th>Teacher Name</th>
+                    <th>Credit</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            
+            <tbody class="table-border-bottom-0">
+                
+                @foreach (var lesson in Model)
+                {
+                    
+                    <tr>
+                        <input type="hidden" name="lessonCode" value="@lesson.Code"/>
+                        <td><strong>@lesson.LessonName</strong></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> @lesson.TeacherName</td>
+                        <td>@lesson.Credit</td>
+                        <td><select name="selection" class="form-select color-dropdown">
+                         <option value="true" selected="">Confirmed</option>
+                         <option value="false" selected="">Not Confirmed</option>
+                         </td>
+                    </tr>
+
+                        
+                }
+                
+
+            </tbody>
+            
+        </table>
+        <div>
+            <button type="submit" class="btn btn-primary me-2">Confirm Lessons</button>
+                   </div> </form>
+    </div>
+</div>
+

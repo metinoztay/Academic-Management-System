@@ -44,4 +44,6 @@ public partial class TblDiscontinuity
     public bool? Week13 { get; set; }
 
     public bool? Week14 { get; set; }
+
+    public bool? Confirmed { get; set; }
 }

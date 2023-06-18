@@ -22,4 +22,6 @@ public partial class TblStudentsLesson
     public int? Average { get; set; }
 
     public string? LetterGrade { get; set; }
+
+    public bool Confirmed { get; set; }
 }

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<AcademicManagementSystem.Models.TempStudentModel>
+@{
+    ViewData["Title"] = "LessonSelectionConfirm";
+    Layout = "~/Views/_AdminLayout.cshtml";
+}
+
+
+<div class="card">
+    <h5 class="card-header">Student List</h5>
+    <div class="table-responsive text-nowrap">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Course</th>
+                    <th>Class</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0">
+
+                @foreach(var student in Model)
+                {
+                    <form action="SelectStudent" method="post">
+                    <tr>
+                        <td hidden><input type="hidden" name="studentID" value="@student.Username"/></td>
+                        <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>@student.Name @student.Surname</strong></td>
+                        <td>@student.Course</td>
+
+                        
+                            @switch (student.Class)
+                            {
+                                case 11:
+                                    <td>
+                                    1. Class 1.Section</td>
+                                    break;
+                                case 12:
+                                    <td>
+                                    1. Class 2.Section</td>
+                                    break;
+                                case 21:
+                                    <td>
+                                        2. Class 1.Section
+                                    </td>
+                                    break;
+                                case 22:
+                                    <td>
+                                        2. Class 2.Section
+                                    </td>
+                                    break;
+                                case 31:
+                                    <td>
+                                        3. Class 1.Section
+                                    </td>
+                                    break;
+                                case 32:
+                                    <td>
+                                        4. Class 2.Section
+                                    </td>
+                                    break;
+                                case 41:
+                                    <td>
+                                        4. Class 1.Section
+                                    </td>
+                                    break;
+                                case 42:
+                                    <td>
+                                        4. Class 2.Section
+                                    </td>
+                                    break;
+                            }
+
+                        <td>
+                            <button type="submit" class="btn btn-icon btn-primary">
+                                <span class="tf-icons bx bx-select-multiple" style="color:#ffffff"></span>
+                            </button>
+                        </td>
+                        
+                    </tr>
+                        </form>
+                }
+                
+            </tbody>
+        </table>
+    </div>
+</div>
+

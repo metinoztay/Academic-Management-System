@@ -50,7 +50,7 @@ namespace AcademicManagementSystem.Controllers
         public IActionResult EntryNote(TblLesson lesson)
         {
             var studentList = dbAcademicMsContext.TblStudentsLessons
-                .Where(l => l.LessonCode == lesson.Code).ToList();
+                .Where(l => l.LessonCode == lesson.Code && l.Confirmed==true).ToList();
 
             List<LessonNoteModel> studentModelList = new List<LessonNoteModel>();
 
@@ -87,6 +87,7 @@ namespace AcademicManagementSystem.Controllers
             studentNote.LessonCode = lessonNote.LessonCode;
             studentNote.Class = (byte)lessonNote.Class;
             studentNote.Id = lessonNote.Id;
+            studentNote.Confirmed = true;
 
             float average;
             if (lessonNote.FinalNote == null)
@@ -156,7 +157,7 @@ namespace AcademicManagementSystem.Controllers
             string LessonCode = dbAcademicMsContext.TblLessons
                 .FirstOrDefault(l => l.LessonName == lesson.LessonName).Code;
             var discontinuityTable = dbAcademicMsContext.TblDiscontinuities
-                .Where(s => s.LessonCode == LessonCode)
+                .Where(s => s.LessonCode == LessonCode && s.Confirmed == true)
                 .OrderBy(s => s.StudentName);
 
             return View(discontinuityTable);
@@ -171,7 +172,8 @@ namespace AcademicManagementSystem.Controllers
             discontinuity.StudentId = temp.StudentId;
             discontinuity.LessonCode= temp.LessonCode;
             discontinuity.Class = (byte)temp.Class;
-            discontinuity.LessonName= temp.LessonName;
+            discontinuity.LessonName = temp.LessonName;
+            discontinuity.Confirmed = true;
             discontinuity.Week1 = (temp.Week1 == "on") ? true : false;
             discontinuity.Week2 = (temp.Week2 == "on") ? true : false;
             discontinuity.Week3 = (temp.Week3 == "on") ? true : false;
