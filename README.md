@@ -1,5 +1,5 @@
 # Academic-Management-System
-An academic management system developed using ASP.NET 6 MVC &amp; Entitiy Framework
+An academic management system developed using ASP.NET 6 MVC &amp; Entity Framework
 
 - Login page:
 ![bandicam 2024-02-10 22-56-25-195](https://github.com/metinoztay/Academic-Management-System/assets/114060570/a48d290e-8877-4f0b-a558-6362273ac1ad)
@@ -9,7 +9,7 @@ An academic management system developed using ASP.NET 6 MVC &amp; Entitiy Framew
 ![bandicam 2024-02-10 22-55-58-629](https://github.com/metinoztay/Academic-Management-System/assets/114060570/00672d65-690c-43d4-adaf-c847eb653d71)
 
 - Not viewing page:
-![bandicam 2024-02-10 22-54-06-400](https://github.com/metinoztay/Academic-Management-System/assets/114060570/7c264bff-c07b-4dfb-b42f-199e768b51f1)
+![not](https://github.com/metinoztay/Academic-Management-System/assets/114060570/a5ed4966-9e23-472f-ad7f-626fbe7c9299)
 
 - Transtript page:
 ![bandicam 2024-02-10 22-47-58-955](https://github.com/metinoztay/Academic-Management-System/assets/114060570/648f1544-2d40-436b-a6c4-b7e195ec6315)
@@ -18,21 +18,21 @@ An academic management system developed using ASP.NET 6 MVC &amp; Entitiy Framew
 ![bandicam 2024-02-10 22-48-08-449](https://github.com/metinoztay/Academic-Management-System/assets/114060570/3833c7de-dd8e-42f4-9e6a-9338fcc086aa)
 
 - Discontinuity page:
-![bandicam 2024-02-10 22-55-46-878](https://github.com/metinoztay/Academic-Management-System/assets/114060570/3f343220-3da4-4b0f-be6e-6d04fb05e122)
+![disc](https://github.com/metinoztay/Academic-Management-System/assets/114060570/349452d8-a088-4d4a-a379-bc1c5b0a02ff)
 
 - Announcements viewing page:
 ![bandicam 2024-02-10 22-47-33-143](https://github.com/metinoztay/Academic-Management-System/assets/114060570/b0dc4fe4-4a20-41c1-bb0a-e9e775f6ce96)
 
 - Profile details editing page:
-![bandicam 2024-02-10 22-48-58-692](https://github.com/metinoztay/Academic-Management-System/assets/114060570/aa802c44-3ddd-4889-9e3f-53a4476d2269)
+![prof](https://github.com/metinoztay/Academic-Management-System/assets/114060570/afa63d7f-0230-4c79-9621-4a25fb447f29)
 
 **Teacher Panel;**
 
 - Making announcement page:
-![bandicam 2024-02-10 23-02-30-041](https://github.com/metinoztay/Academic-Management-System/assets/114060570/e30dc710-b50f-42f2-97b6-12e35a938a2d)
+![announce](https://github.com/metinoztay/Academic-Management-System/assets/114060570/394cd321-eb60-42db-9718-a0dbb21f6490)
 
 - Teachers timetable page:
-![bandicam 2024-02-10 23-04-16-024](https://github.com/metinoztay/Academic-Management-System/assets/114060570/f05fb3cd-8f4d-4150-b743-aff1cf51b0b0)
+![mycourse](https://github.com/metinoztay/Academic-Management-System/assets/114060570/3a4f7893-f353-4da2-9496-99410c2760f8)
 
 - Discontinuity editing page:
 ![bandicam 2024-02-10 23-06-13-618](https://github.com/metinoztay/Academic-Management-System/assets/114060570/d245d545-1bd3-429d-93cf-67153afb607e)
@@ -48,8 +48,8 @@ An academic management system developed using ASP.NET 6 MVC &amp; Entitiy Framew
 ![bandicam 2024-02-10 22-58-16-880](https://github.com/metinoztay/Academic-Management-System/assets/114060570/03450de2-e1d9-4602-9d1b-b719e3ecfecb)
 
 - Lesson selection control:
-![bandicam 2024-02-10 22-49-39-247](https://github.com/metinoztay/Academic-Management-System/assets/114060570/3c9d0742-20e8-4a18-8e1a-d91a0f9a47d6)
-
+![son](https://github.com/metinoztay/Academic-Management-System/assets/114060570/3237e18a-b8d8-48cc-a255-e228949f567d)
+  
 - Lesson control page:
 ![bandicam 2024-02-10 22-58-59-110](https://github.com/metinoztay/Academic-Management-System/assets/114060570/cf4c4998-cbc7-4b52-bcd5-d85c9689f9bc)
 
